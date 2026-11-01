@@ -1,0 +1,445 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>BN Games — игры, которые я делаю сам</title>
+<meta name="description" content="BN Games — игры Николая Бахвалова: «Крестики-нолики: новые миры», «Сапёр: новые миры», «Словодел», «Словодел: Разлив», «Идеальный разлив» и тренажёр морзе HST Modern. Яндекс Игры, ВКонтакте, RuStore, Google Play.">
+<meta property="og:title" content="BN Games — игры, которые я делаю сам">
+<meta property="og:description" content="Пять головоломок и тренажёр морзе. Один разработчик, нейросети и много упрямства.">
+<meta property="og:image" content="img/banner-1920.jpg">
+<meta name="theme-color" content="#060a1c">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="preload" as="image" href="img/banner-1100.jpg" imagesrcset="img/banner-1100.jpg 1100w, img/banner-1920.jpg 1920w" imagesizes="100vw">
+<style>
+@font-face{font-family:Unbounded;font-weight:700;font-display:swap;src:url(fonts/unbounded-cyrillic-700-normal.woff2) format('woff2');unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:Unbounded;font-weight:700;font-display:swap;src:url(fonts/unbounded-latin-700-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+2000-206F}
+@font-face{font-family:Unbounded;font-weight:800;font-display:swap;src:url(fonts/unbounded-cyrillic-800-normal.woff2) format('woff2');unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:Unbounded;font-weight:800;font-display:swap;src:url(fonts/unbounded-latin-800-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+2000-206F}
+@font-face{font-family:Nunito;font-weight:700;font-display:swap;src:url(fonts/nunito-cyrillic-700-normal.woff2) format('woff2');unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:Nunito;font-weight:700;font-display:swap;src:url(fonts/nunito-latin-700-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+2000-206F}
+@font-face{font-family:Nunito;font-weight:800;font-display:swap;src:url(fonts/nunito-cyrillic-800-normal.woff2) format('woff2');unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:Nunito;font-weight:800;font-display:swap;src:url(fonts/nunito-latin-800-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+2000-206F}
+@font-face{font-family:Nunito;font-weight:900;font-display:swap;src:url(fonts/nunito-cyrillic-900-normal.woff2) format('woff2');unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:Nunito;font-weight:900;font-display:swap;src:url(fonts/nunito-latin-900-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+2000-206F}
+
+:root{
+  --bg:#060a1c; --bg-2:#0a1130; --panel:#0d1636; --panel-2:#121d45;
+  --blue:#2f8dff; --cyan:#4fd6ff; --amber:#ffb020; --orange:#ff7a1a;
+  --ink:#eaf1ff; --muted:#93a4c9; --line:rgba(120,165,255,.16);
+  --glow-b:0 0 18px rgba(47,141,255,.55); --glow-o:0 0 18px rgba(255,150,30,.55);
+  --r:24px;
+  --f-display:Unbounded, "Arial Black", sans-serif; --f-ui:Nunito, system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;background:var(--bg)}
+body{margin:0;background:radial-gradient(1200px 700px at 10% 55%,rgba(47,141,255,.10),transparent 60%),radial-gradient(900px 600px at 95% 75%,rgba(255,140,30,.08),transparent 60%),var(--bg);
+  color:var(--ink);font:700 17px/1.55 var(--f-ui);overflow-x:hidden}
+a{color:inherit}
+img{display:block;max-width:100%}
+:focus-visible{outline:3px solid var(--amber);outline-offset:3px;border-radius:10px}
+.wrap{width:min(1140px,100% - 32px);margin-inline:auto}
+/* градиент «синий → оранжевый», как в логотипе */
+.nb{color:#5fd0ff;text-shadow:0 0 18px rgba(47,141,255,.75),0 0 2px rgba(150,220,255,.9)}
+.no{color:#ffb020;text-shadow:0 0 18px rgba(255,140,30,.7),0 0 2px rgba(255,220,140,.9)}
+
+/* ---------- Верхняя панель ---------- */
+.top{position:absolute;inset:0 0 auto;z-index:5;padding:16px 0}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font:800 17px/1 var(--f-display)}
+.brand img{width:40px;height:40px;border-radius:50%;box-shadow:0 0 0 1px rgba(255,255,255,.15),0 0 16px rgba(47,141,255,.5)}
+.top nav{display:flex;gap:4px;padding:5px;border-radius:999px;background:rgba(6,10,28,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:inset 0 0 0 1px var(--line)}
+.top nav a{padding:8px 14px;border-radius:999px;text-decoration:none;font-weight:800;font-size:15px;color:#c7d4f2;transition:background .2s,color .2s}
+.top nav a:hover{background:rgba(255,255,255,.08);color:#fff}
+.lang{border:0;cursor:pointer;padding:8px 13px;border-radius:999px;font:900 14px/1 var(--f-ui);letter-spacing:.5px;color:#1d1000;background:linear-gradient(180deg,#ffd166,var(--amber));box-shadow:0 0 14px rgba(255,150,30,.45);transition:transform .15s}
+.lang:hover{transform:translateY(-1px)}
+@media (max-width:640px){.top nav a:not(.nav-games){display:none}}
+
+/* ---------- Первый экран: баннер ---------- */
+.hero{position:relative}
+.stage{position:relative;height:clamp(300px,40vw,720px);overflow:hidden;isolation:isolate}
+.stage img.banner{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 45%;transform-origin:50% 45%;animation:zoom 2.6s cubic-bezier(.2,.7,.2,1) both}
+@keyframes zoom{from{transform:scale(1.14);filter:brightness(.2) saturate(.6)}to{transform:none;filter:none}}
+.stage::after{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;
+  background:linear-gradient(180deg,rgba(6,10,28,.55) 0%,transparent 22%,transparent 62%,var(--bg) 100%),
+             linear-gradient(90deg,var(--bg) 0%,transparent 14%,transparent 86%,var(--bg) 100%)}
+/* пульс неона вокруг логотипа на баннере */
+.pulse{position:absolute;left:50%;top:48%;width:min(32vw,560px);aspect-ratio:1;translate:-50% -50%;border-radius:50%;z-index:1;pointer-events:none;mix-blend-mode:screen;
+  background:radial-gradient(closest-side,rgba(79,214,255,.0) 62%,rgba(79,214,255,.30) 72%,rgba(255,160,40,.22) 80%,transparent 88%);
+  animation:pulse 4.5s 2.4s ease-in-out infinite both}
+@keyframes pulse{0%,100%{opacity:.25;transform:scale(.97)}50%{opacity:1;transform:scale(1.03)}}
+/* неоновые фигуры — как на баннере */
+.shapes{position:absolute;inset:0;z-index:3;pointer-events:none}
+.shape{position:absolute;left:var(--x);top:var(--y);width:var(--s);height:var(--s);color:var(--c);filter:drop-shadow(0 0 6px currentColor) drop-shadow(0 0 16px currentColor);
+  translate:var(--px,0) var(--py,0);animation:float var(--d,9s) ease-in-out infinite,appear 1s both;animation-delay:var(--dl,0s),calc(1.6s + var(--i) * .12s);opacity:.9}
+.shape svg{width:100%;height:100%;overflow:visible}
+@keyframes float{50%{transform:translateY(-14px) rotate(var(--rot,12deg))}}
+@keyframes appear{from{opacity:0;scale:.3}to{opacity:.9;scale:1}}
+@media (max-width:640px){.shape.far{display:none}}
+
+.intro{position:relative;z-index:4;text-align:center;margin-top:clamp(-70px,-5vw,-30px);padding-bottom:30px}
+h1{font:800 clamp(28px,4.4vw,56px)/1.08 var(--f-display);margin:0 auto 16px;letter-spacing:-.5px;max-width:19ch;text-wrap:balance;animation:rise .9s 1.1s both}
+.lead{font-size:clamp(17px,1.6vw,20px);color:var(--muted);max-width:52ch;margin:0 auto 26px;animation:rise .9s 1.25s both}
+@keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+.cta{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;animation:rise .9s 1.4s both}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:15px 26px;border-radius:16px;font:900 17px/1 var(--f-ui);text-decoration:none;transition:transform .15s,box-shadow .2s,background .2s}
+.btn-main{color:#1d1000;background:linear-gradient(180deg,#ffd166,var(--amber) 55%,var(--orange));box-shadow:0 0 0 1px rgba(255,200,90,.6),0 8px 30px rgba(255,140,30,.45)}
+.btn-main:hover{transform:translateY(-2px);box-shadow:0 0 0 1px rgba(255,220,120,.9),0 10px 40px rgba(255,140,30,.65)}
+.btn-line{color:#fff;background:rgba(47,141,255,.08);box-shadow:inset 0 0 0 2px rgba(79,214,255,.55),0 0 22px rgba(47,141,255,.25)}
+.btn-line:hover{background:rgba(47,141,255,.18);box-shadow:inset 0 0 0 2px var(--cyan),0 0 30px rgba(47,141,255,.5)}
+
+/* ---------- Разделы ---------- */
+section{padding:60px 0}
+.sec-head{display:flex;align-items:end;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:28px}
+h2{font:800 clamp(26px,3.4vw,40px)/1.12 var(--f-display);margin:0;letter-spacing:-.3px}
+.sec-head p{margin:0;color:var(--muted);max-width:46ch}
+
+/* карточка с неоновой рамкой: синий → оранжевый, вспыхивает при наведении */
+.neon{position:relative;background:linear-gradient(180deg,var(--panel-2),var(--panel));border-radius:var(--r);isolation:isolate}
+.neon::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1.5px;z-index:-1;
+  background:linear-gradient(135deg,rgba(79,214,255,.55),rgba(47,141,255,.18) 40%,rgba(255,160,40,.18) 60%,rgba(255,140,30,.55));
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;transition:opacity .3s}
+.neon::after{content:"";position:absolute;inset:-1px;border-radius:inherit;z-index:-2;opacity:0;transition:opacity .35s;
+  box-shadow:-10px -6px 34px rgba(47,141,255,.45),10px 8px 34px rgba(255,140,30,.40)}
+.neon:hover::after{opacity:1}
+
+.games{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:22px}
+@media (max-width:360px){.games{grid-template-columns:1fr}}
+.game{display:flex;flex-direction:column;transform:perspective(900px) rotateX(var(--rx,0)) rotateY(var(--ry,0));transition:transform .25s ease}
+.game .cover{border-radius:var(--r) var(--r) 0 0;overflow:hidden;aspect-ratio:1024/500;background:var(--bg-2);margin:1.5px 1.5px 0}
+.game .cover img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.game:hover .cover img{transform:scale(1.05)}
+.game .body{padding:44px 22px 22px;display:flex;flex-direction:column;gap:10px;flex:1;position:relative}
+.game .ico{position:absolute;left:18px;top:0;width:64px;height:64px;border-radius:18px;margin-top:-32px;box-shadow:0 0 0 3px var(--panel-2),0 0 0 4.5px rgba(79,214,255,.5),0 8px 20px rgba(0,0,0,.5)}
+.game h3{font:800 20px/1.2 var(--f-display);margin:0}
+.game p{margin:0;color:var(--muted);font-size:16px}
+.tags{display:flex;gap:6px;flex-wrap:wrap;margin:2px 0 4px;padding:0;list-style:none}
+.tags li{font:800 13px/1 var(--f-ui);padding:6px 10px;border-radius:999px;background:rgba(47,141,255,.12);color:#9fd2ff;box-shadow:inset 0 0 0 1px rgba(79,214,255,.22)}
+.stores{display:flex;gap:8px;flex-wrap:wrap;margin-top:auto;padding-top:8px}
+.store{display:inline-flex;align-items:center;gap:7px;padding:10px 13px;border-radius:12px;background:rgba(255,255,255,.06);color:#fff;text-decoration:none;font:800 14px/1 var(--f-ui);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.14);transition:transform .15s,box-shadow .2s,background .2s}
+.store:hover{transform:translateY(-2px);background:rgba(255,176,32,.12);box-shadow:inset 0 0 0 1px var(--amber),var(--glow-o)}
+.store svg{width:16px;height:16px;flex:none}
+.stores .soon{flex-basis:100%;font:800 13px/1.3 var(--f-ui);color:#6f80a8;margin-top:2px}
+
+/* ---------- HST Modern ---------- */
+.hst{padding:clamp(26px,4vw,48px);display:grid;grid-template-columns:auto 1fr;gap:clamp(20px,4vw,48px);align-items:center;overflow:hidden}
+.hst::after{box-shadow:0 0 50px rgba(0,220,255,.35)}
+@media (max-width:760px){.hst{grid-template-columns:1fr}}
+.hst .badge{font:800 14px/1 var(--f-ui);color:var(--cyan);margin:0 0 10px;text-shadow:0 0 12px rgba(79,214,255,.7)}
+.hst p{color:var(--muted);margin:12px 0 0;max-width:56ch}
+.hst-icon{width:clamp(130px,16vw,180px);aspect-ratio:1;border-radius:24%;box-shadow:0 0 40px rgba(0,220,255,.45),0 20px 50px rgba(0,0,0,.5);animation:glow 3.2s ease-in-out infinite}
+@keyframes glow{50%{box-shadow:0 0 70px rgba(0,230,255,.75),0 20px 50px rgba(0,0,0,.5)}}
+.morse{display:flex;align-items:center;gap:9px;margin:22px 0 4px;flex-wrap:wrap}
+.morse i{display:block;height:12px;width:12px;border-radius:7px;background:rgba(79,214,255,.16);animation:key 4.2s steps(1) infinite;animation-delay:calc(var(--t) * 120ms)}
+.morse i.dah{width:36px}
+.morse i.sp{background:none;width:14px;animation:none}
+@keyframes key{0%{background:#bff4ff;box-shadow:0 0 8px #4fd6ff,0 0 20px #00c8ff}6%{background:rgba(79,214,255,.16);box-shadow:none}}
+.morse-cap{font:800 13px/1 var(--f-ui);color:#6f80a8;margin:6px 0 18px}
+
+/* ---------- Статьи ---------- */
+.how{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+@media (max-width:760px){.how{grid-template-columns:1fr}}
+.post{display:flex;flex-direction:column;gap:12px;padding:26px;text-decoration:none;transition:transform .2s}
+.post:hover{transform:translateY(-4px)}
+.post .where{font:800 13px/1 var(--f-ui);color:var(--amber)}
+.post h3{font:800 clamp(18px,1.9vw,22px)/1.25 var(--f-display);margin:0}
+.post p{margin:0;color:var(--muted);font-size:16px}
+.post .more{margin-top:auto;font-weight:900;color:var(--cyan)}
+
+/* ---------- Соцсети ---------- */
+.social{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media (max-width:760px){.social{grid-template-columns:1fr}}
+.soc{display:flex;align-items:center;gap:16px;padding:20px 22px;text-decoration:none;transition:transform .2s}
+.soc:hover{transform:translateY(-3px)}
+.soc .lg{width:50px;height:50px;border-radius:14px;background:var(--c);display:grid;place-items:center;flex:none;box-shadow:0 0 22px color-mix(in srgb,var(--c) 60%,transparent)}
+.soc .lg svg{width:28px;height:28px}
+.soc b{display:block;font:800 18px/1.2 var(--f-display)}
+.soc span{font-size:15px;color:var(--muted)}
+
+/* ---------- Подвал ---------- */
+footer{border-top:1px solid var(--line);color:var(--muted);padding:44px 0 calc(40px + env(safe-area-inset-bottom));margin-top:30px;background:rgba(3,6,18,.6)}
+.foot{display:grid;grid-template-columns:auto 1.2fr 1fr;gap:30px;align-items:start}
+@media (max-width:860px){.foot{grid-template-columns:1fr}}
+.foot .logo{width:84px;height:84px;border-radius:50%;box-shadow:0 0 30px rgba(47,141,255,.35)}
+footer h4{font:800 15px/1 var(--f-display);color:#fff;margin:0 0 14px}
+footer ul{list-style:none;margin:0;padding:0;columns:2;column-gap:20px}
+@media (max-width:420px){footer ul{columns:1}}
+footer li{margin:0 0 8px;break-inside:avoid}
+footer a{color:#c7d4f2;text-decoration-color:rgba(199,212,242,.3);text-underline-offset:3px}
+footer a:hover{color:#fff}
+.small{font-size:14px;color:#6f80a8;margin-top:22px}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .game{transform:none!important}
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="top">
+    <div class="wrap">
+      <a class="brand" href="#"><img src="img/logo-128.png" alt="" width="40" height="40">BN Games</a>
+      <nav aria-label="Разделы" data-i18n-aria="nav">
+        <a class="nav-games" href="#games" data-i18n="navGames">Игры</a>
+        <a href="#hst">HST Modern</a>
+        <a href="#how" data-i18n="navHow">Как я их делаю</a>
+        <a href="#social" data-i18n="navSocial">Где я пишу</a>
+        <button class="lang" id="lang" type="button" aria-label="English version">EN</button>
+      </nav>
+    </div>
+  </div>
+
+  <div class="stage" id="stage">
+    <img class="banner" src="img/banner-1100.jpg" srcset="img/banner-1100.jpg 1100w, img/banner-1920.jpg 1920w" sizes="100vw" alt="Логотип BN Games" width="1920" height="768" fetchpriority="high">
+    <div class="pulse" aria-hidden="true"></div>
+    <div class="shapes" id="shapes" aria-hidden="true"></div>
+  </div>
+
+  <div class="intro wrap">
+    <h1 data-i18n="h1">Делаю игры, в&nbsp;которые <span class="nb">хочется</span> <span class="no">вернуться</span></h1>
+    <p class="lead" data-i18n="lead">Пять головоломок и тренажёр морзе. Я делаю их один — с нейросетями и упрямством. Играйте бесплатно в Яндекс Играх, ВКонтакте, RuStore и Google Play.</p>
+    <div class="cta">
+      <a class="btn btn-main" href="#games" data-i18n="ctaGames">Выбрать игру</a>
+      <a class="btn btn-line" href="#how" data-i18n="navHow">Как я их делаю</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section id="games">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 data-i18n="navGames">Игры</h2>
+        <p data-i18n="gamesSub">Каждая — со своими мирами, ежедневными задачами и вызовом другу по ссылке.</p>
+      </div>
+      <div class="games" id="games-list"></div>
+    </div>
+  </section>
+
+  <section id="hst" style="padding-top:20px">
+    <div class="wrap">
+      <div class="hst neon">
+        <img class="hst-icon" src="img/hstmodern-icon.png" alt="Значок HST Modern" width="180" height="180" loading="lazy">
+        <div>
+          <p class="badge" data-i18n="hstBadge">Не только игры</p>
+          <h2 data-i18n="hstTitle">HST Modern — тренажёр приёма азбуки Морзе</h2>
+          <p data-i18n="hstText">Для скоростной радиотелеграфии и тех, кто только учит знаки. Скорость от 20 до 400 знаков в минуту, тон от 300 до 1000 Гц, русские буквы, режим соревнования с журналом. Работает без интернета.</p>
+          <div class="morse" id="morse" aria-label="HST азбукой Морзе"></div>
+          <p class="morse-cap" data-i18n="morseCap">H · S · T — так звучит название</p>
+          <div class="stores" id="hst-stores"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="how">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 data-i18n="navHow">Как я их делаю</h2>
+        <p data-i18n="howSub">Без студии и бюджета: идея, нейросети и сотни проверок на разных экранах. Пишу об этом честно — с цифрами и ошибками.</p>
+      </div>
+      <div class="how">
+        <a class="post neon" href="https://vc.ru/ai/3225387-kak-zarabotat-na-prostykh-igrah" target="_blank" rel="noopener">
+          <span class="where">vc.ru</span>
+          <h3 data-i18n="post1">Увидел, как люди зарабатывают на простых играх, и решил попробовать. Теперь у меня четыре игры</h3>
+          <p data-i18n="post1t">Всё началось с ролика о браузерных играх. Что из этого вышло.</p>
+          <span class="more" data-i18n="read">Читать</span>
+        </a>
+        <a class="post neon" href="https://vc.ru/ai/3226230-sozdanie-igr-s-nevrosyetami" target="_blank" rel="noopener">
+          <span class="where">vc.ru</span>
+          <h3 data-i18n="post2">Как я создаю игры с помощью нейросетей. Claude Code, ChatGPT и немного упрямства</h3>
+          <p data-i18n="post2t">Вместо одной игры получилось несколько. Рассказываю, как устроена работа.</p>
+          <span class="more" data-i18n="read">Читать</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section id="social" style="padding-top:20px">
+    <div class="wrap">
+      <div class="sec-head"><h2 data-i18n="navSocial">Где я пишу</h2><p data-i18n="socialSub">Новости игр, обновления и заметки о разработке.</p></div>
+      <div class="social">
+        <a class="soc neon" style="--c:#2a2a3a" href="https://dzen.ru/id/6ae4405601e67513313fbb3b" target="_blank" rel="noopener">
+          <span class="lg"><svg viewBox="0 0 28 28" aria-hidden="true"><path fill="#fff" d="M14 0c.2 7.9 1.4 11.7 4.6 13.3 1.6.6 4.1.7 9.4.7-7.9.2-11.7 1.4-13.3 4.6-.6 1.6-.7 4.1-.7 9.4-.2-7.9-1.4-11.7-4.6-13.3C7.8 14.1 5.3 14 0 14c7.9-.2 11.7-1.4 13.3-4.6C13.9 7.8 14 5.3 14 0z"/></svg></span>
+          <div><b data-i18n="dzen">Дзен</b><span data-i18n="dzenSub">канал BN Games</span></div>
+        </a>
+        <a class="soc neon" style="--c:#e8434f" href="https://vc.ru/id6165872" target="_blank" rel="noopener">
+          <span class="lg"><svg viewBox="0 0 28 28" aria-hidden="true"><text x="14" y="20" text-anchor="middle" font-family="Arial Black, sans-serif" font-weight="900" font-size="15" fill="#fff">vc</text></svg></span>
+          <div><b>vc.ru</b><span data-i18n="vcSub">блог о разработке</span></div>
+        </a>
+        <a class="soc neon" style="--c:#0077ff" href="https://vk.ru/club242598778" target="_blank" rel="noopener">
+          <span class="lg"><svg viewBox="0 0 28 28" aria-hidden="true"><path fill="#fff" d="M15.1 21C7.6 21 3.3 15.9 3.1 7.3h3.8c.1 6.3 2.9 9 5.1 9.5V7.3h3.5v5.4c2.2-.2 4.5-2.7 5.2-5.4h3.5c-.6 3.4-3 5.9-4.8 6.9 1.8.8 4.6 3 5.6 6.8h-3.9c-.8-2.6-2.9-4.6-5.6-4.9V21h-.4z"/></svg></span>
+          <div><b data-i18n="vk">ВКонтакте</b><span data-i18n="vkSub">сообщество</span></div>
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <img class="logo" src="img/logo-128.png" alt="BN Games" width="84" height="84" loading="lazy">
+    <div>
+      <h4 data-i18n="policies">Политика конфиденциальности</h4>
+      <ul id="policies"></ul>
+    </div>
+    <div>
+      <h4 data-i18n="contact">Связаться</h4>
+      <p style="margin:0"><span data-i18n="contactText">Вопросы, ошибки, идеи:</span> <a id="mail" href="#"></a></p>
+      <p class="small">© <span id="year"></span> <span data-i18n="copy">BN Games — Николай Бахвалов. Игры бесплатные, в них показывается реклама Яндекса.</span></p>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ===== Всё, что меняется, — здесь. Пустая ссылка — магазин в строке «Скоро». ===== */
+var CONTACT = 'rk9cbn@mail.ru';
+var GAMES = [
+  { key:'tictactoe', coverEn:true, title:'Крестики-нолики: новые миры', text:'Десять миров с разными правилами: гравитация, исчезающие знаки, поле 15×15. Боссы, задачи и игра вдвоём.', tags:['300 уровней','10 миров','задача дня'],
+    en:{ title:'Tic-Tac-Toe: New Worlds', text:'Ten worlds with different rules: gravity, vanishing marks, a 15×15 board. Bosses, puzzles and two-player mode.', tags:['300 levels','10 worlds','daily puzzle'] },
+    yandex:'', vk:'https://vk.com/app54857988', rustore:'', play:'' },
+  { key:'sapper', coverEn:true, title:'Сапёр: новые миры', text:'Сапёр без угадывания: каждое поле решается логикой. Ежедневное поле, классика и поле для друга.', tags:['500 уровней','12 стилей','без угадаек'],
+    en:{ title:'Minesweeper: New Worlds', text:'Minesweeper with no guessing: every board is solved by logic. Daily board, classic mode and a board for a friend.', tags:['500 levels','12 styles','no guessing'] },
+    yandex:'', vk:'https://vk.com/app54819098', rustore:'', play:'' },
+  { key:'slovodel', title:'Словодел: угадай слово', text:'Угадай слово по подсказкам плиток: что на месте, что есть, чего нет. Уровни, бесконечный режим, паника и дуэль.', tags:['1000 уровней','5 режимов'],
+    en:{ title:'Slovodel: Guess the Word', text:'A Russian word game: guess the word from tile hints — in place, present, absent. Levels, endless mode, panic and duel.', tags:['in Russian','1000 levels','5 modes'] },
+    yandex:'https://yandex.ru/games/app/558460', vk:'https://vk.com/app54795154', rustore:'', play:'' },
+  { key:'razliv', title:'Словодел: Разлив', text:'Переливай буквы по пробиркам, пока каждая не станет словом. И цепочка дня — одно слово в другое по букве.', tags:['300 уровней','15 миров','цепочка дня'],
+    en:{ title:'Slovodel: Pour', text:'A Russian word puzzle: pour letters between tubes until each one spells a word. Plus a daily word chain.', tags:['in Russian','300 levels','15 worlds'] },
+    yandex:'', vk:'https://vk.com/app54810726', rustore:'', play:'' },
+  { key:'perfect-pour', coverEn:true, title:'Идеальный разлив', text:'Сортировка жидкостей по бутылкам: спокойная, но с характером. Ежедневный расклад, редактор и вызов друга на тот же расклад.', tags:['ежедневный расклад','вызов другу'],
+    en:{ title:'Perfect Pour', text:'Sort the liquids into bottles: calm, but with character. Daily layout, level editor and a friend challenge on the same layout.', tags:['daily layout','friend challenge'] },
+    yandex:'https://yandex.ru/games/app/563751', vk:'https://vk.com/app54795219', rustore:'', play:'' }
+];
+var HST = { play:'https://play.google.com/store/apps/details?id=ru.hstmodern', rustore:'' };
+var POLICY_EN = { 'Крестики-нолики: новые миры':'Tic-Tac-Toe: New Worlds', 'Сапёр: новые миры':'Minesweeper: New Worlds', 'Словодел: угадай слово':'Slovodel: Guess the Word', 'Словодел: Разлив':'Slovodel: Pour', 'Идеальный разлив':'Perfect Pour', 'HST Modern':'HST Modern' };
+var POLICIES = [
+  ['Крестики-нолики: новые миры','privacy/tictactoe.html'], ['Сапёр: новые миры','privacy/sapper.html'],
+  ['Словодел: угадай слово','privacy/slovodel.html'], ['Словодел: Разлив','privacy/razliv.html'],
+  ['Идеальный разлив','privacy/perfect-pour.html'], ['HST Modern','privacy/hstmodern.html']
+];
+
+/* ===== ниже — разметка и анимации, менять не нужно ===== */
+var ICONS = {
+  yandex:'<svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="8" fill="#fc3f1d"/><path fill="#fff" d="M9.1 3.5H8.3C6.9 3.5 6 4.3 6 5.5c0 1.3.6 2 1.7 2.8l.9.6-2.6 3.6H4.5l2.3-3.3C5.5 8.3 4.8 7.4 4.8 5.6c0-2 1.4-3.3 3.5-3.3h2.1V12H9.1V3.5z"/></svg>',
+  vk:'<svg viewBox="0 0 16 16"><rect width="16" height="16" rx="4" fill="#07f"/><path fill="#fff" d="M8.5 11.6c-3.9 0-6.1-2.7-6.2-7.1h2c0 3.3 1.5 4.7 2.7 5V4.5h1.8v2.8c1.1-.1 2.3-1.4 2.7-2.8h1.8c-.3 1.8-1.6 3.1-2.5 3.6.9.4 2.4 1.6 2.9 3.5h-2c-.4-1.3-1.5-2.4-2.9-2.5v2.5h-.3z"/></svg>',
+  rustore:'<svg viewBox="0 0 16 16"><rect width="16" height="16" rx="4" fill="#0077ff"/><path fill="#fff" d="M4 4.5l4.6 1.2v6.1L4 10.6zM9.4 5.9L12 6.6v5l-2.6-.7z"/></svg>',
+  play:'<svg viewBox="0 0 16 16"><path fill="#00d7fe" d="M2 1.5l7.3 6.6L2 14.7c-.3-.2-.5-.6-.5-1V2.5c0-.4.2-.8.5-1z"/><path fill="#ffce00" d="M11.7 5.9L9.3 8.1l2.4 2.2 2.4-1.4c.6-.4.6-1.2 0-1.6z"/><path fill="#00f076" d="M2 1.5L9.3 8.1l2.4-2.2L3.2 1.3C2.8 1.1 2.4 1.2 2 1.5z"/><path fill="#ff3a44" d="M2 14.7c.4.3.8.4 1.2.2l8.5-4.6-2.4-2.2z"/></svg>'
+};
+var NAMES = { ru:{ yandex:'Яндекс Игры', vk:'ВКонтакте', rustore:'RuStore', play:'Google Play' }, en:{ yandex:'Yandex Games', vk:'VK', rustore:'RuStore', play:'Google Play' } };
+var EN = {
+  nav:'Sections', navGames:'Games', navHow:'How I make them', navSocial:'Where I write',
+  h1:'I make games you <span class="nb">want to come</span> <span class="no">back to</span>',
+  lead:'Five puzzle games and a Morse code trainer. I make them on my own — with neural networks and stubbornness. Play for free on Yandex Games, VK, RuStore and Google Play.',
+  ctaGames:'Pick a game', gamesSub:'Each one has its own worlds, daily puzzles and a challenge you can send to a friend.',
+  hstBadge:'Not just games', hstTitle:'HST Modern — a Morse code receiving trainer',
+  hstText:'For high-speed telegraphy and for those just learning the characters. Speed from 20 to 400 characters per minute, tone from 300 to 1000 Hz, Russian letters, a competition mode with a log. Works offline.',
+  morseCap:'H · S · T — that’s how the name sounds',
+  howSub:'No studio and no budget: an idea, neural networks and hundreds of checks on different screens. I write about it honestly — with numbers and mistakes. Articles are in Russian.',
+  post1:'I saw people earn money on simple games and decided to try. Now I have four games', post1t:'It all started with a video about browser games. Here is what came of it.',
+  post2:'How I make games with neural networks: Claude Code, ChatGPT and a bit of stubbornness', post2t:'Instead of one game I ended up with several. How the work is organized.',
+  read:'Read (in Russian)', socialSub:'Game news, updates and development notes. In Russian.',
+  dzen:'Dzen', dzenSub:'BN Games channel', vcSub:'development blog', vk:'VK', vkSub:'community',
+  policies:'Privacy policy (in Russian)', contact:'Contact', contactText:'Questions, bugs, ideas:',
+  copy:'BN Games — Nikolay Bakhvalov. The games are free and show Yandex ads.', soon:'Coming soon: '
+};
+function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+var lang = 'ru';
+function stores(o, list){
+  var N = NAMES[lang], on = list.filter(function(k){ return o[k]; }), soon = list.filter(function(k){ return !o[k]; });
+  return on.map(function(k){ return '<a class="store" href="'+esc(o[k])+'" target="_blank" rel="noopener">'+ICONS[k]+N[k]+'</a>'; }).join('') +
+    (soon.length ? '<span class="soon">' + (lang === 'en' ? EN.soon : 'Скоро: ') + soon.map(function(k){ return N[k]; }).join(', ') + '</span>' : '');
+}
+function renderGames(){
+  document.getElementById('games-list').innerHTML = GAMES.map(function(g){
+    var t = lang === 'en' ? g.en : g, img = 'img/' + g.key + (lang === 'en' && g.coverEn ? '-en' : '') + '.jpg';
+    return '<article class="game neon"><div class="cover"><img src="'+img+'" alt="'+esc(t.title)+'" width="1024" height="500" loading="lazy" decoding="async"></div>'+
+      '<div class="body"><img class="ico" src="img/'+g.key+'-icon.png" alt="" width="64" height="64" loading="lazy">'+
+      '<h3>'+esc(t.title)+'</h3><p>'+esc(t.text)+'</p><ul class="tags">'+t.tags.map(function(x){return '<li>'+esc(x)+'</li>';}).join('')+'</ul>'+
+      '<div class="stores">'+stores(g, ['yandex','vk','rustore','play'])+'</div></div></article>';
+  }).join('');
+  document.getElementById('hst-stores').innerHTML = stores(HST, ['play','rustore']);
+  document.getElementById('policies').innerHTML = POLICIES.map(function(p){ return '<li><a href="'+p[1]+'">'+esc(lang === 'en' ? POLICY_EN[p[0]] : p[0])+'</a></li>'; }).join('');
+  tilt();
+}
+var RU = {};
+document.querySelectorAll('[data-i18n]').forEach(function(el){ RU[el.dataset.i18n] = el.innerHTML; });
+var META = { ru:{ title:document.title, desc:document.querySelector('meta[name=description]').content },
+  en:{ title:'BN Games — games I make myself', desc:'BN Games by Nikolay Bakhvalov: Tic-Tac-Toe: New Worlds, Minesweeper: New Worlds, Perfect Pour, Slovodel word games and the HST Modern Morse code trainer.' } };
+function setLang(l, save){
+  lang = l === 'en' ? 'en' : 'ru';
+  document.documentElement.lang = lang;
+  document.querySelectorAll('[data-i18n]').forEach(function(el){ var k = el.dataset.i18n; el.innerHTML = lang === 'en' ? EN[k] : RU[k]; });
+  var nav = document.querySelector('[data-i18n-aria]'); if(nav) nav.setAttribute('aria-label', lang === 'en' ? EN.nav : 'Разделы');
+  var b = document.getElementById('lang'); b.textContent = lang === 'en' ? 'RU' : 'EN'; b.setAttribute('aria-label', lang === 'en' ? 'Русская версия' : 'English version');
+  document.title = META[lang].title; document.querySelector('meta[name=description]').content = META[lang].desc;
+  renderGames();
+  if(save){ try{ localStorage.setItem('bn_lang', lang); }catch(e){} try{ history.replaceState(null, '', lang === 'en' ? '?lang=en' + location.hash : location.pathname + location.hash); }catch(e){} }
+}
+document.getElementById('lang').addEventListener('click', function(){ setLang(lang === 'en' ? 'ru' : 'en', true); });
+var start = (location.search.match(/lang=(ru|en)/) || [])[1];
+if(!start){ try{ start = localStorage.getItem('bn_lang'); }catch(e){} }
+if(!start) start = /^(ru|uk|be|kk)/i.test(navigator.language || 'ru') ? 'ru' : 'en';
+var mail = document.getElementById('mail'); mail.textContent = CONTACT; mail.href = 'mailto:' + CONTACT;
+document.getElementById('year').textContent = new Date().getFullYear();
+
+/* неоновые фигуры над баннером: квадрат, треугольник, круг, крестик */
+var SHAPES = {
+  sq:'<svg viewBox="0 0 40 40"><rect x="6" y="6" width="28" height="28" rx="3" fill="none" stroke="currentColor" stroke-width="4"/></svg>',
+  tri:'<svg viewBox="0 0 40 40"><path d="M20 6 L35 33 H5 Z" fill="none" stroke="currentColor" stroke-width="4" stroke-linejoin="round"/></svg>',
+  ci:'<svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="14" fill="none" stroke="currentColor" stroke-width="4"/></svg>',
+  x:'<svg viewBox="0 0 40 40"><path d="M9 9 L31 31 M31 9 L9 31" stroke="currentColor" stroke-width="5" stroke-linecap="round"/></svg>'
+};
+var B = '#4fd6ff', O = '#ffb020';
+var placed = [ // x, y, размер, вид, цвет, глубина, дальние прячем на телефоне
+  ['6%','30%','clamp(22px,3vw,46px)','sq',B,1.4,1], ['22%','72%','clamp(16px,2vw,30px)','ci',O,.8,1],
+  ['30%','14%','clamp(16px,2.2vw,34px)','tri',B,1,0], ['70%','18%','clamp(18px,2.4vw,38px)','tri',O,1.2,0],
+  ['78%','70%','clamp(18px,2.2vw,34px)','x',B,.9,0], ['92%','38%','clamp(20px,2.6vw,42px)','sq',O,1.5,1],
+  ['14%','52%','clamp(12px,1.4vw,22px)','x',O,.6,1], ['86%','12%','clamp(12px,1.4vw,22px)','ci',B,.6,1]
+];
+var host = document.getElementById('shapes');
+placed.forEach(function(p, i){
+  var el = document.createElement('span');
+  el.className = 'shape' + (p[6] ? ' far' : '');
+  el.style.cssText = '--x:'+p[0]+';--y:'+p[1]+';--s:'+p[2]+';--c:'+p[4]+';--i:'+i+';--d:'+(7 + i % 4 * 1.5)+'s;--dl:'+(-i * 1.1)+'s;--rot:'+(i % 2 ? -14 : 14)+'deg';
+  el.dataset.depth = p[5]; el.innerHTML = SHAPES[p[3]]; host.appendChild(el);
+});
+
+/* морзе: H .... S ... T - */
+var code = ['.', '.', '.', '.', ' ', '.', '.', '.', ' ', '-'], t = 0, html = '';
+code.forEach(function(c){ if(c === ' '){ html += '<i class="sp"></i>'; t += 3; } else { html += '<i class="' + (c === '-' ? 'dah' : '') + '" style="--t:' + t + '"></i>'; t += c === '-' ? 3 : 1; } });
+document.getElementById('morse').innerHTML = html;
+
+if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+  /* фигуры плывут за мышью, на разной «глубине» */
+  var shapes = host.querySelectorAll('.shape'), tx = 0, ty = 0, cx = 0, cy = 0, raf = 0;
+  window.addEventListener('pointermove', function(e){
+    if(e.pointerType !== 'mouse') return;
+    tx = (e.clientX / innerWidth - .5) * 2; ty = (e.clientY / innerHeight - .5) * 2;
+    if(!raf) raf = requestAnimationFrame(step);
+  });
+  function step(){
+    cx += (tx - cx) * .07; cy += (ty - cy) * .07;
+    shapes.forEach(function(s){ var d = +s.dataset.depth; s.style.setProperty('--px', (cx * 22 * d) + 'px'); s.style.setProperty('--py', (cy * 16 * d) + 'px'); });
+    raf = (Math.abs(tx - cx) + Math.abs(ty - cy) > .002) ? requestAnimationFrame(step) : 0;
+  }
+}
+/* карточки игр наклоняются за курсором (зовётся после каждой отрисовки карточек) */
+function tilt(){
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  document.querySelectorAll('.game').forEach(function(card){
+    card.addEventListener('pointermove', function(e){
+      if(e.pointerType !== 'mouse') return;
+      var r = card.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+      card.style.setProperty('--ry', (x * 6) + 'deg'); card.style.setProperty('--rx', (-y * 6) + 'deg');
+    });
+    card.addEventListener('pointerleave', function(){ card.style.setProperty('--ry', '0deg'); card.style.setProperty('--rx', '0deg'); });
+  });
+}
+setLang(start, false);
+</script>
+</body>
+</html>
