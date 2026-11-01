@@ -128,7 +128,7 @@ h2{font:800 clamp(26px,3.4vw,40px)/1.12 var(--f-display);margin:0;letter-spacing
 @media (max-width:760px){.hst{grid-template-columns:1fr}}
 .hst .badge{font:800 14px/1 var(--f-ui);color:var(--cyan);margin:0 0 10px;text-shadow:0 0 12px rgba(79,214,255,.7)}
 .hst p{color:var(--muted);margin:12px 0 0;max-width:56ch}
-.hst-icon{width:clamp(130px,16vw,180px);aspect-ratio:1;border-radius:24%;box-shadow:0 0 40px rgba(0,220,255,.45),0 20px 50px rgba(0,0,0,.5);animation:glow 3.2s ease-in-out infinite}
+.hst-icon{width:clamp(130px,16vw,180px);height:auto;aspect-ratio:1;object-fit:cover;justify-self:start;border-radius:24%;box-shadow:0 0 40px rgba(0,220,255,.45),0 20px 50px rgba(0,0,0,.5);animation:glow 3.2s ease-in-out infinite}
 @keyframes glow{50%{box-shadow:0 0 70px rgba(0,230,255,.75),0 20px 50px rgba(0,0,0,.5)}}
 .morse{display:flex;align-items:center;gap:9px;margin:22px 0 4px;flex-wrap:wrap}
 .morse i{display:block;height:12px;width:12px;border-radius:7px;background:rgba(79,214,255,.16);animation:key 4.2s steps(1) infinite;animation-delay:calc(var(--t) * 120ms)}
@@ -382,7 +382,7 @@ function setLang(l, save){
 document.getElementById('lang').addEventListener('click', function(){ setLang(lang === 'en' ? 'ru' : 'en', true); });
 var start = (location.search.match(/lang=(ru|en)/) || [])[1];
 if(!start){ try{ start = localStorage.getItem('bn_lang'); }catch(e){} }
-if(!start) start = /^(ru|uk|be|kk)/i.test(navigator.language || 'ru') ? 'ru' : 'en';
+if(!start) start = 'ru';   // встроенные браузеры (Telegram, VK) часто сообщают английский — по умолчанию русский, EN по кнопке или ?lang=en
 var mail = document.getElementById('mail'); mail.textContent = CONTACT; mail.href = 'mailto:' + CONTACT;
 document.getElementById('year').textContent = new Date().getFullYear();
 
