@@ -147,6 +147,29 @@ h2{font:800 clamp(26px,3.4vw,40px)/1.12 var(--f-display);margin:0;letter-spacing
 .post p{margin:0;color:var(--muted);font-size:16px}
 .post .more{margin-top:auto;font-weight:900;color:var(--cyan)}
 
+/* ---------- Заказать разработку ---------- */
+.seg{display:inline-flex;padding:5px;border-radius:999px;background:rgba(255,255,255,.05);box-shadow:inset 0 0 0 1px var(--line);margin-bottom:22px}
+.seg button{border:0;cursor:pointer;padding:11px 20px;border-radius:999px;background:none;color:#c7d4f2;font:900 15px/1 var(--f-ui);transition:background .2s,color .2s,box-shadow .2s}
+.seg button[aria-selected="true"]{background:linear-gradient(180deg,#ffd166,var(--amber));color:#1d1000;box-shadow:0 0 18px rgba(255,150,30,.45)}
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;align-items:stretch}
+@media (max-width:900px){.plans{grid-template-columns:1fr}}
+.plan{display:flex;flex-direction:column;gap:12px;padding:26px 24px 24px}
+.plan.hot::before{background:linear-gradient(135deg,var(--cyan),var(--blue) 45%,var(--amber) 70%,var(--orange));padding:2px}
+.plan.hot::after{opacity:.65}
+.plan .badge-hot{align-self:flex-start;font:900 12px/1 var(--f-ui);padding:6px 10px;border-radius:999px;background:rgba(255,176,32,.15);color:var(--amber);box-shadow:inset 0 0 0 1px rgba(255,176,32,.5)}
+.plan h3{font:800 22px/1.2 var(--f-display);margin:0}
+.plan .for{margin:0;color:var(--muted);font-size:15px}
+.plan .price{font:800 clamp(26px,3vw,32px)/1 var(--f-display);margin:4px 0 0}
+.plan .price small{font:800 15px/1 var(--f-ui);color:var(--muted)}
+.plan .term{font-size:14px;color:var(--cyan);margin:0}
+.plan ul{list-style:none;margin:6px 0 4px;padding:0;display:grid;gap:8px}
+.plan li{position:relative;padding-left:26px;font-size:15.5px;line-height:1.45}
+.plan li::before{content:"";position:absolute;left:2px;top:.45em;width:12px;height:7px;border:solid var(--cyan);border-width:0 0 2.5px 2.5px;transform:rotate(-45deg)}
+.plan .btn{margin-top:auto;justify-content:center}
+.order-note{margin:22px 0 0;color:var(--muted);font-size:15px}
+.order-note a{color:var(--cyan)}
+.nav-order{color:#ffcf6b!important}
+
 /* ---------- Соцсети ---------- */
 .social{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 @media (max-width:760px){.social{grid-template-columns:1fr}}
@@ -187,6 +210,7 @@ footer a:hover{color:#fff}
         <a href="#hst">HST Modern</a>
         <a href="#how" data-i18n="navHow">Как я их делаю</a>
         <a href="#social" data-i18n="navSocial">Где я пишу</a>
+        <a class="nav-order" href="#order" data-i18n="navOrder">Заказать</a>
         <button class="lang" id="lang" type="button" aria-label="English version">EN</button>
       </nav>
     </div>
@@ -203,7 +227,7 @@ footer a:hover{color:#fff}
     <p class="lead" data-i18n="lead">Пять головоломок и тренажёр морзе. Я делаю их один — с нейросетями и упрямством. Играйте бесплатно в Яндекс Играх, ВКонтакте, RuStore и Google Play.</p>
     <div class="cta">
       <a class="btn btn-main" href="#games" data-i18n="ctaGames">Выбрать игру</a>
-      <a class="btn btn-line" href="#how" data-i18n="navHow">Как я их делаю</a>
+      <a class="btn btn-line" href="#order" data-i18n="ctaOrder">Заказать разработку</a>
     </div>
   </div>
 </header>
@@ -232,6 +256,21 @@ footer a:hover{color:#fff}
           <div class="stores" id="hst-stores"></div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <section id="order">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 data-i18n="orderTitle">Заказать разработку</h2>
+        <p data-i18n="orderSub">Делаю игры и лендинги так же, как свои: быстро, с вниманием к деталям и проверкой на телефонах и компьютерах. Цены — ориентир, точную назову после короткого разговора о задаче.</p>
+      </div>
+      <div class="seg" role="tablist" aria-label="Что заказать">
+        <button type="button" role="tab" id="tab-game" aria-selected="true" data-i18n="tabGame">Разработка игры</button>
+        <button type="button" role="tab" id="tab-land" aria-selected="false" data-i18n="tabLand">Разработка лендинга</button>
+      </div>
+      <div class="plans" id="plans" role="tabpanel"></div>
+      <p class="order-note"><span data-i18n="orderNote">Удобнее в сообщениях? Напишите в</span> <a href="https://vk.me/club242598778" target="_blank" rel="noopener" data-i18n="orderVk">сообщество ВКонтакте</a>.</p>
     </div>
   </section>
 
@@ -315,6 +354,37 @@ var GAMES = [
     yandex:'https://yandex.ru/games/app/563751', vk:'https://vk.com/app54795219', rustore:'', play:'' }
 ];
 var HST = { play:'https://play.google.com/store/apps/details?id=ru.hstmodern', rustore:'' };
+/* Тарифы: цены «от», правьте здесь. Кнопка «Заказать» открывает письмо на CONTACT с темой тарифа. */
+var PLANS = {
+  game: [
+    { id:'start', name:'Старт', en:'Start', price:'30 000', term:'2–3 недели', termEn:'2–3 weeks',
+      for:'Простая казуальная игра, чтобы проверить идею', forEn:'A simple casual game to test an idea',
+      items:['Одна механика, до 30 уровней или бесконечный режим','Адаптация под телефон и компьютер','Реклама и сохранения Яндекс Игр','Загрузка в Яндекс Игры и тексты для каталога'],
+      itemsEn:['One mechanic, up to 30 levels or an endless mode','Works on phone and desktop','Yandex Games ads and cloud saves','Upload to Yandex Games and catalogue texts'] },
+    { id:'std', hot:true, name:'Стандарт', en:'Standard', price:'80 000', term:'4–6 недель', termEn:'4–6 weeks',
+      for:'Полноценная головоломка с прогрессией', forEn:'A full puzzle game with progression',
+      items:['100+ уровней, проверенных на решаемость','Ежедневное задание, достижения, ежедневный вход','Русский и английский','Яндекс Игры, ВКонтакте и Одноклассники','Вызов друга по ссылке'],
+      itemsEn:['100+ levels, all checked for solvability','Daily puzzle, achievements, login streak','Russian and English','Yandex Games, VK and OK','Challenge a friend by link'] },
+    { id:'full', name:'Под ключ', en:'Turnkey', price:'150 000', term:'6–10 недель', termEn:'6–10 weeks',
+      for:'Игра на все площадки с сопровождением', forEn:'A game on every platform, with support',
+      items:['Всё из «Стандарта»','Android-приложение для RuStore и Google Play','Музыка, иконки, обложки и баннеры','Помощь с публикацией и модерацией','Месяц исправлений после выхода'],
+      itemsEn:['Everything in Standard','Android app for RuStore and Google Play','Music, icons, covers and banners','Help with publishing and moderation','A month of fixes after release'] }
+  ],
+  land: [
+    { id:'card', name:'Визитка', en:'Card', price:'8 000', term:'3–5 дней', termEn:'3–5 days',
+      for:'Одна страница о вас или продукте', forEn:'One page about you or your product',
+      items:['До 5 блоков на одной странице','Адаптив для телефона и компьютера','Бесплатный хостинг на GitHub Pages','Контакты и ссылки на соцсети'],
+      itemsEn:['Up to 5 sections on one page','Works on phone and desktop','Free hosting on GitHub Pages','Contacts and social links'] },
+    { id:'landing', hot:true, name:'Лендинг', en:'Landing', price:'20 000', term:'1–2 недели', termEn:'1–2 weeks',
+      for:'Страница, которая приводит заявки', forEn:'A page that brings in leads',
+      items:['До 10 блоков, свой дизайн под бренд','Анимации и аккуратная вёрстка','Кнопки заявки: почта, ВКонтакте, Telegram','Русская и английская версии','Яндекс Метрика и базовое SEO'],
+      itemsEn:['Up to 10 sections, design to match your brand','Animations and careful layout','Lead buttons: email, VK, Telegram','Russian and English versions','Yandex Metrica and basic SEO'] },
+    { id:'premium', name:'Премиум', en:'Premium', price:'40 000', term:'2–3 недели', termEn:'2–3 weeks',
+      for:'Сайт с интерактивом и характером', forEn:'A site with interactivity and character',
+      items:['Всё из «Лендинга»','Интерактив: калькулятор, квиз, галерея, мини-игра','Подключение своего домена','Политика конфиденциальности и app-ads.txt для приложений','Месяц правок после запуска'],
+      itemsEn:['Everything in Landing','Interactive: calculator, quiz, gallery, mini-game','Your own domain connected','Privacy policy and app-ads.txt for apps','A month of edits after launch'] }
+  ]
+};
 var POLICY_EN = { 'Крестики-нолики: новые миры':'Tic-Tac-Toe: New Worlds', 'Сапёр: новые миры':'Minesweeper: New Worlds', 'Словодел: угадай слово':'Slovodel: Guess the Word', 'Словодел: Разлив':'Slovodel: Pour', 'Идеальный разлив':'Perfect Pour', 'HST Modern':'HST Modern' };
 var POLICIES = [
   ['Крестики-нолики: новые миры','privacy/tictactoe.html'], ['Сапёр: новые миры','privacy/sapper.html'],
@@ -344,7 +414,10 @@ var EN = {
   read:'Read (in Russian)', socialSub:'Game news, updates and development notes. In Russian.',
   dzen:'Dzen', dzenSub:'BN Games channel', vcSub:'development blog', vk:'VK', vkSub:'community',
   policies:'Privacy policy (in Russian)', contact:'Contact', contactText:'Questions, bugs, ideas:',
-  copy:'BN Games — Nikolay Bakhvalov. The games are free and show Yandex ads.', soon:'Coming soon: '
+  copy:'BN Games — Nikolay Bakhvalov. The games are free and show Yandex ads.', soon:'Coming soon: ',
+  navOrder:'Hire me', ctaOrder:'Order development', orderTitle:'Order development',
+  orderSub:'I build games and landing pages the same way I build my own: fast, with attention to detail and testing on phones and desktops. Prices are a guide — I will quote exactly after a short chat about your task.',
+  tabGame:'Game development', tabLand:'Landing page', orderNote:'Prefer messages? Write to the', orderVk:'VK community'
 };
 function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
 var lang = 'ru';
@@ -353,6 +426,32 @@ function stores(o, list){
   return on.map(function(k){ return '<a class="store" href="'+esc(o[k])+'" target="_blank" rel="noopener">'+ICONS[k]+N[k]+'</a>'; }).join('') +
     (soon.length ? '<span class="soon">' + (lang === 'en' ? EN.soon : 'Скоро: ') + soon.map(function(k){ return N[k]; }).join(', ') + '</span>' : '');
 }
+var orderKind = 'game';
+function renderPlans(){
+  var en = lang === 'en';
+  document.getElementById('plans').innerHTML = PLANS[orderKind].map(function(p){
+    var kindName = orderKind === 'game' ? (en ? 'Game' : 'Игра') : (en ? 'Landing page' : 'Лендинг');
+    var subj = (en ? 'Order: ' : 'Заказ: ') + kindName + ' — ' + (en ? p.en : p.name);
+    var body = en ? 'Hello! I would like to order: ' + kindName + ', plan "' + p.en + '".\n\nAbout the project:\n'
+                  : 'Здравствуйте! Хочу заказать: ' + kindName + ', тариф «' + p.name + '».\n\nО проекте:\n';
+    var href = 'mailto:' + CONTACT + '?subject=' + encodeURIComponent(subj) + '&body=' + encodeURIComponent(body);
+    return '<article class="plan neon' + (p.hot ? ' hot' : '') + '">' +
+      (p.hot ? '<span class="badge-hot">' + (en ? 'Most chosen' : 'Чаще выбирают') + '</span>' : '') +
+      '<h3>' + esc(en ? p.en : p.name) + '</h3><p class="for">' + esc(en ? p.forEn : p.for) + '</p>' +
+      '<p class="price"><small>' + (en ? 'from ' : 'от ') + '</small>' + esc(p.price) + ' ₽</p>' +
+      '<p class="term">' + esc(en ? p.termEn : p.term) + '</p>' +
+      '<ul>' + (en ? p.itemsEn : p.items).map(function(x){ return '<li>' + esc(x) + '</li>'; }).join('') + '</ul>' +
+      '<a class="btn ' + (p.hot ? 'btn-main' : 'btn-line') + '" href="' + href + '">' + (en ? 'Order' : 'Заказать') + '</a></article>';
+  }).join('');
+}
+function setOrderKind(k){
+  orderKind = k;
+  document.getElementById('tab-game').setAttribute('aria-selected', k === 'game');
+  document.getElementById('tab-land').setAttribute('aria-selected', k === 'land');
+  renderPlans();
+}
+document.getElementById('tab-game').addEventListener('click', function(){ setOrderKind('game'); });
+document.getElementById('tab-land').addEventListener('click', function(){ setOrderKind('land'); });
 function renderGames(){
   document.getElementById('games-list').innerHTML = GAMES.map(function(g){
     var t = lang === 'en' ? g.en : g, img = 'img/' + g.key + (lang === 'en' && g.coverEn ? '-en' : '') + '.jpg';
@@ -363,6 +462,7 @@ function renderGames(){
   }).join('');
   document.getElementById('hst-stores').innerHTML = stores(HST, ['play','rustore']);
   document.getElementById('policies').innerHTML = POLICIES.map(function(p){ return '<li><a href="'+p[1]+'">'+esc(lang === 'en' ? POLICY_EN[p[0]] : p[0])+'</a></li>'; }).join('');
+  renderPlans();
   tilt();
 }
 var RU = {};
