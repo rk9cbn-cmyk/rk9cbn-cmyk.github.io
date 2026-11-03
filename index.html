@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>BN Games — игры, которые я делаю сам</title>
-<meta name="description" content="BN Games — игры Николая Бахвалова: «Крестики-нолики: новые миры», «Сапёр: новые миры», «Словодел», «Словодел: Разлив», «Идеальный разлив» и тренажёр морзе HST Modern. Яндекс Игры, ВКонтакте, RuStore, Google Play.">
+<meta name="description" content="BN Games — игры Николая Бахвалова: «Шашки: новые миры», «Крестики-нолики: новые миры», «Сапёр: новые миры», «Словодел», «Словодел: Разлив», «Идеальный разлив» и тренажёр морзе HST Modern. Яндекс Игры, ВКонтакте, RuStore, Google Play.">
 <meta property="og:title" content="BN Games — игры, которые я делаю сам">
-<meta property="og:description" content="Пять головоломок и тренажёр морзе. Один разработчик, нейросети и много упрямства.">
+<meta property="og:description" content="Шесть игр и тренажёр морзе. Один разработчик, нейросети и много упрямства.">
 <meta property="og:image" content="img/banner-1920.jpg">
 <meta name="theme-color" content="#060a1c">
 <link rel="icon" type="image/png" href="favicon.png">
@@ -224,7 +224,7 @@ footer a:hover{color:#fff}
 
   <div class="intro wrap">
     <h1 data-i18n="h1">Делаю игры, в&nbsp;которые <span class="nb">хочется</span> <span class="no">вернуться</span></h1>
-    <p class="lead" data-i18n="lead">Пять головоломок и тренажёр морзе. Я делаю их один — с нейросетями и упрямством. Играйте бесплатно в Яндекс Играх, ВКонтакте, RuStore и Google Play.</p>
+    <p class="lead" data-i18n="lead">Шесть игр и тренажёр морзе. Я делаю их один — с нейросетями и упрямством. Играйте бесплатно в Яндекс Играх, ВКонтакте, RuStore и Google Play.</p>
     <div class="cta">
       <a class="btn btn-main" href="#games" data-i18n="ctaGames">Выбрать игру</a>
       <a class="btn btn-line" href="#order" data-i18n="ctaOrder">Заказать разработку</a>
@@ -337,6 +337,9 @@ footer a:hover{color:#fff}
 /* ===== Всё, что меняется, — здесь. Пустая ссылка — магазин в строке «Скоро». ===== */
 var CONTACT = 'rk9cbn@mail.ru';
 var GAMES = [
+  { key:'checkers', coverEn:true, title:'Шашки: новые миры', text:'Девять видов шашек — русские, поддавки, уголки, башни, международные — как десять миров с соперниками-персонажами. Задачи на удар, дебюты и разбор ошибок.', tags:['300 уровней','300 задач','9 видов'],
+    en:{ title:'Checkers: New Worlds', text:'Nine kinds of checkers — Russian, giveaway, corners, towers, international — as ten worlds with character opponents. Tactics puzzles, openings and mistake review.', tags:['300 levels','300 puzzles','9 variants'] },
+    yandex:'', vk:'https://vk.com/app54871983', rustore:'', play:'' },
   { key:'tictactoe', coverEn:true, title:'Крестики-нолики: новые миры', text:'Десять миров с разными правилами: гравитация, исчезающие знаки, поле 15×15. Боссы, задачи и игра вдвоём.', tags:['300 уровней','10 миров','задача дня'],
     en:{ title:'Tic-Tac-Toe: New Worlds', text:'Ten worlds with different rules: gravity, vanishing marks, a 15×15 board. Bosses, puzzles and two-player mode.', tags:['300 levels','10 worlds','daily puzzle'] },
     yandex:'', vk:'https://vk.com/app54857988', rustore:'', play:'' },
@@ -385,9 +388,9 @@ var PLANS = {
       itemsEn:['Everything in Landing','Interactive: calculator, quiz, gallery, mini-game','Your own domain connected','Privacy policy and app-ads.txt for apps','A month of edits after launch'] }
   ]
 };
-var POLICY_EN = { 'Крестики-нолики: новые миры':'Tic-Tac-Toe: New Worlds', 'Сапёр: новые миры':'Minesweeper: New Worlds', 'Словодел: угадай слово':'Slovodel: Guess the Word', 'Словодел: Разлив':'Slovodel: Pour', 'Идеальный разлив':'Perfect Pour', 'HST Modern':'HST Modern' };
+var POLICY_EN = { 'Шашки: новые миры':'Checkers: New Worlds', 'Крестики-нолики: новые миры':'Tic-Tac-Toe: New Worlds', 'Сапёр: новые миры':'Minesweeper: New Worlds', 'Словодел: угадай слово':'Slovodel: Guess the Word', 'Словодел: Разлив':'Slovodel: Pour', 'Идеальный разлив':'Perfect Pour', 'HST Modern':'HST Modern' };
 var POLICIES = [
-  ['Крестики-нолики: новые миры','privacy/tictactoe.html'], ['Сапёр: новые миры','privacy/sapper.html'],
+  ['Шашки: новые миры','privacy/checkers.html'], ['Крестики-нолики: новые миры','privacy/tictactoe.html'], ['Сапёр: новые миры','privacy/sapper.html'],
   ['Словодел: угадай слово','privacy/slovodel.html'], ['Словодел: Разлив','privacy/razliv.html'],
   ['Идеальный разлив','privacy/perfect-pour.html'], ['HST Modern','privacy/hstmodern.html']
 ];
@@ -403,7 +406,7 @@ var NAMES = { ru:{ yandex:'Яндекс Игры', vk:'ВКонтакте', rust
 var EN = {
   nav:'Sections', navGames:'Games', navHow:'How I make them', navSocial:'Where I write',
   h1:'I make games you <span class="nb">want to come</span> <span class="no">back to</span>',
-  lead:'Five puzzle games and a Morse code trainer. I make them on my own — with neural networks and stubbornness. Play for free on Yandex Games, VK, RuStore and Google Play.',
+  lead:'Six games and a Morse code trainer. I make them on my own — with neural networks and stubbornness. Play for free on Yandex Games, VK, RuStore and Google Play.',
   ctaGames:'Pick a game', gamesSub:'Each one has its own worlds, daily puzzles and a challenge you can send to a friend.',
   hstBadge:'Not just games', hstTitle:'HST Modern — a Morse code receiving trainer',
   hstText:'For high-speed telegraphy and for those just learning the characters. Speed from 20 to 400 characters per minute, tone from 300 to 1000 Hz, Russian letters, a competition mode with a log. Works offline.',
@@ -468,7 +471,7 @@ function renderGames(){
 var RU = {};
 document.querySelectorAll('[data-i18n]').forEach(function(el){ RU[el.dataset.i18n] = el.innerHTML; });
 var META = { ru:{ title:document.title, desc:document.querySelector('meta[name=description]').content },
-  en:{ title:'BN Games — games I make myself', desc:'BN Games by Nikolay Bakhvalov: Tic-Tac-Toe: New Worlds, Minesweeper: New Worlds, Perfect Pour, Slovodel word games and the HST Modern Morse code trainer.' } };
+  en:{ title:'BN Games — games I make myself', desc:'BN Games by Nikolay Bakhvalov: Checkers: New Worlds, Tic-Tac-Toe: New Worlds, Minesweeper: New Worlds, Perfect Pour, Slovodel word games and the HST Modern Morse code trainer.' } };
 function setLang(l, save){
   lang = l === 'en' ? 'en' : 'ru';
   document.documentElement.lang = lang;
