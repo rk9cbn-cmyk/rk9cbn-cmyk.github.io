@@ -1,3 +1,229 @@
-<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Страница не найдена — BN Games</title>
-<style>body{margin:0;min-height:100vh;display:grid;place-items:center;background:#17124a;color:#fff;font:700 18px/1.5 system-ui,sans-serif;text-align:center;padding:16px}a{color:#ffc93c}</style></head>
-<body><div><p style="font-size:64px;margin:0">404</p><p>Такой страницы нет.</p><p><a href="/">На главную BN Games</a></p></div></body></html>
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Страница не найдена — BN Games</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#060a1c">
+<link rel="icon" type="image/png" href="/favicon.png">
+<style>
+/* Пути — от корня сайта: 404 открывается по любому адресу. */
+@font-face{font-family:Unbounded;font-weight:800;font-display:swap;src:url(/fonts/unbounded-cyrillic-800-normal.woff2) format('woff2');unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:Unbounded;font-weight:800;font-display:swap;src:url(/fonts/unbounded-latin-800-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+2000-206F}
+@font-face{font-family:Nunito;font-weight:700;font-display:swap;src:url(/fonts/nunito-cyrillic-700-normal.woff2) format('woff2');unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:Nunito;font-weight:700;font-display:swap;src:url(/fonts/nunito-latin-700-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+2000-206F}
+@font-face{font-family:Nunito;font-weight:900;font-display:swap;src:url(/fonts/nunito-cyrillic-900-normal.woff2) format('woff2');unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:Nunito;font-weight:900;font-display:swap;src:url(/fonts/nunito-latin-900-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+2000-206F}
+:root{
+  --bg:#060a1c; --panel:#0d1636; --blue:#2f8dff; --cyan:#4fd6ff; --amber:#ffb020; --orange:#ff7a1a;
+  --ink:#eaf1ff; --muted:#93a4c9; --line:rgba(120,165,255,.16);
+  --f-display:Unbounded, "Arial Black", sans-serif; --f-ui:Nunito, system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;overflow:hidden;color:var(--ink);font:700 17px/1.55 var(--f-ui);
+  background:radial-gradient(900px 600px at 15% 20%,rgba(47,141,255,.14),transparent 60%),radial-gradient(800px 600px at 90% 30%,rgba(255,140,30,.10),transparent 60%),var(--bg)}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--amber);outline-offset:3px;border-radius:10px}
+
+/* звёзды */
+.stars{position:fixed;inset:0;pointer-events:none}
+.stars i{position:absolute;width:2px;height:2px;border-radius:50%;background:#bfe6ff;opacity:.6;animation:tw var(--d) ease-in-out infinite var(--dl)}
+@keyframes tw{50%{opacity:.1;transform:scale(.5)}}
+
+/* неоновая сетка-пол, едет к зрителю */
+.floor{position:fixed;left:-50%;right:-50%;bottom:0;height:40vh;pointer-events:none;perspective:340px;perspective-origin:50% 0}
+.floor::before{content:"";position:absolute;inset:0;transform:rotateX(62deg);transform-origin:50% 0;
+  background:linear-gradient(90deg,rgba(79,214,255,.45) 2px,transparent 2px) 0 0/70px 70px,linear-gradient(0deg,rgba(79,214,255,.45) 2px,transparent 2px) 0 0/70px 70px;
+  -webkit-mask:linear-gradient(transparent,#000 30%,#000);mask:linear-gradient(transparent,#000 30%,#000);
+  animation:run 1.6s linear infinite}
+.floor::after{content:"";position:absolute;left:0;right:0;top:-2px;height:3px;background:linear-gradient(90deg,transparent,var(--orange) 30%,var(--amber) 50%,var(--orange) 70%,transparent);box-shadow:0 0 30px 8px rgba(255,140,30,.45)}
+@keyframes run{to{background-position:0 70px,0 70px}}
+
+/* фигуры */
+.shapes{position:fixed;inset:0}
+.shape{position:absolute;left:var(--x);top:var(--y);width:var(--s);height:var(--s);padding:0;border:0;background:none;cursor:pointer;color:var(--c);
+  filter:drop-shadow(0 0 6px currentColor) drop-shadow(0 0 16px currentColor);
+  translate:var(--px,0) var(--py,0);animation:appear .8s cubic-bezier(.2,1.4,.4,1) both calc(var(--i) * .08s + .3s)}
+.shape span{display:block;width:100%;height:100%;animation:float var(--d) ease-in-out infinite var(--dl)}
+.shape svg{width:100%;height:100%;overflow:visible;transition:transform .2s}
+.shape:hover svg{transform:scale(1.25) rotate(20deg)}
+.shape.pop{animation:pop .35s ease-in forwards;pointer-events:none}
+@keyframes float{50%{transform:translateY(-18px) rotate(var(--rot))}}
+@keyframes appear{from{opacity:0;scale:.2}to{opacity:.95;scale:1}}
+@keyframes pop{to{opacity:0;scale:1.9;filter:drop-shadow(0 0 30px currentColor) brightness(2)}}
+.spark{position:fixed;width:6px;height:6px;border-radius:50%;background:var(--c);box-shadow:0 0 10px var(--c),0 0 20px var(--c);pointer-events:none;
+  animation:spark .7s cubic-bezier(.2,.7,.3,1) forwards}
+@keyframes spark{to{transform:translate(var(--dx),var(--dy)) scale(.2);opacity:0}}
+.plus{position:fixed;pointer-events:none;font:900 22px/1 var(--f-ui);color:var(--amber);text-shadow:0 0 12px rgba(255,150,30,.8);animation:plus .9s ease-out forwards}
+@keyframes plus{to{transform:translateY(-60px);opacity:0}}
+
+/* центр */
+main{position:relative;z-index:2;height:100%;display:grid;place-items:center;padding:16px;pointer-events:none}
+.box{text-align:center;max-width:620px;pointer-events:auto}
+.brand{display:inline-flex;align-items:center;gap:10px;text-decoration:none;font:800 16px/1 var(--f-display);margin-bottom:6px;animation:rise .6s both}
+.brand img{width:36px;height:36px;border-radius:50%;box-shadow:0 0 0 1px rgba(255,255,255,.15),0 0 16px rgba(47,141,255,.5)}
+.code{display:flex;justify-content:center;align-items:center;gap:clamp(4px,1.5vw,16px);margin:6px 0 4px;font:800 clamp(110px,24vw,230px)/1 var(--f-display);user-select:none}
+.d4{position:relative;color:#5fd0ff;text-shadow:0 0 6px rgba(150,220,255,.9),0 0 24px rgba(47,141,255,.9),0 0 60px rgba(47,141,255,.6);animation:flick 5s infinite}
+.d4.b{animation-delay:-2.3s;animation-duration:7s}
+.d4::before,.d4::after{content:attr(data-t);position:absolute;inset:0;opacity:0}
+.d4::before{color:#ff4fd8;text-shadow:none;animation:gl1 4s infinite steps(1)}
+.d4::after{color:var(--amber);text-shadow:none;animation:gl2 4s infinite steps(1)}
+@keyframes flick{0%,18%,22%,62%,64%,100%{opacity:1}20%,63%{opacity:.35}}
+@keyframes gl1{0%,91%,100%{opacity:0;transform:none}92%{opacity:.8;transform:translate(-6px,2px);clip-path:inset(10% 0 55% 0)}95%{opacity:.8;transform:translate(5px,-3px);clip-path:inset(60% 0 10% 0)}}
+@keyframes gl2{0%,92%,100%{opacity:0;transform:none}93%{opacity:.8;transform:translate(6px,-1px);clip-path:inset(40% 0 30% 0)}96%{opacity:.8;transform:translate(-4px,3px);clip-path:inset(5% 0 70% 0)}}
+/* «0» — неоновый круг с орбитой, ловит курсор зрачком */
+.zero{position:relative;width:.78em;height:.95em;flex:none}
+.zero svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.ring{fill:none;stroke:var(--amber);stroke-width:9;filter:drop-shadow(0 0 4px #ffd27a) drop-shadow(0 0 18px rgba(255,140,30,.9))}
+.orbit{fill:none;stroke:var(--cyan);stroke-width:3;stroke-dasharray:6 14;opacity:.8;transform-origin:50% 50%;animation:spin 9s linear infinite;filter:drop-shadow(0 0 6px var(--cyan))}
+.pupil{fill:var(--cyan);filter:drop-shadow(0 0 8px var(--cyan));transition:transform .15s ease-out}
+.blink{transform-origin:50% 50%;animation:blink 4.5s infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes blink{0%,46%,50%,100%{transform:scaleY(1)}48%{transform:scaleY(.08)}}
+h1{font:800 clamp(22px,4vw,34px)/1.2 var(--f-display);margin:8px 0 10px;animation:rise .6s .15s both}
+p.t{margin:0 auto 22px;color:#c7d4f2;text-shadow:0 1px 8px #060a1c,0 0 2px #060a1c;max-width:520px;animation:rise .6s .25s both}
+.btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;animation:rise .6s .35s both}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:14px 24px;border-radius:999px;text-decoration:none;font:900 16px/1 var(--f-ui);transition:transform .15s,box-shadow .2s}
+.btn:hover{transform:translateY(-2px)}
+.btn-main{color:#1d1000;background:linear-gradient(180deg,#ffd166,var(--amber) 55%,var(--orange));box-shadow:0 0 0 1px rgba(255,200,90,.6),0 8px 30px rgba(255,140,30,.45)}
+.btn-line{color:#fff;box-shadow:inset 0 0 0 2px rgba(79,214,255,.7),0 0 18px rgba(47,141,255,.35);background:rgba(6,10,28,.5)}
+.hint{margin:22px 0 0;font-size:15px;color:var(--muted);min-height:1.6em;animation:rise .6s .45s both}
+.hint b{color:var(--amber)}
+.lang{position:fixed;top:16px;right:16px;z-index:3;border:0;cursor:pointer;padding:8px 13px;border-radius:999px;font:900 14px/1 var(--f-ui);letter-spacing:.5px;color:#1d1000;background:linear-gradient(180deg,#ffd166,var(--amber));box-shadow:0 0 14px rgba(255,150,30,.45)}
+@keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@media (max-height:560px){.code{font-size:min(24vw,120px)}.floor{height:30vh}}
+@media (max-width:640px){.shape.far{display:none}.shape:nth-child(3){top:84%}.shape:nth-child(4){top:90%}.floor{height:30vh}}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+}
+</style>
+</head>
+<body>
+<div class="stars" id="stars" aria-hidden="true"></div>
+<div class="floor" aria-hidden="true"></div>
+<div class="shapes" id="shapes"></div>
+<button class="lang" id="lang" type="button" aria-label="English version">EN</button>
+
+<main>
+  <div class="box">
+    <a class="brand" href="/"><img src="/img/logo-128.png" alt="" width="36" height="36">BN Games</a>
+    <div class="code" role="img" aria-label="404">
+      <span class="d4" data-t="4" aria-hidden="true">4</span>
+      <span class="zero" aria-hidden="true">
+        <svg viewBox="0 0 100 120">
+          <ellipse class="orbit" cx="50" cy="60" rx="56" ry="66"/>
+          <g class="blink"><ellipse class="ring" cx="50" cy="60" rx="38" ry="48"/><circle class="pupil" id="pupil" cx="50" cy="60" r="11"/></g>
+        </svg>
+      </span>
+      <span class="d4 b" data-t="4" aria-hidden="true">4</span>
+    </div>
+    <h1 data-i="h1">Эта страница сбежала</h1>
+    <p class="t" data-i="t">Возможно, её перенесли или в адресе опечатка. Зато все игры на месте — выбирайте любую.</p>
+    <div class="btns">
+      <a class="btn btn-main" href="/#games" id="to-games" data-i="games">Выбрать игру</a>
+      <a class="btn btn-line" href="/" id="to-home" data-i="home">На главную</a>
+    </div>
+    <p class="hint" id="hint" aria-live="polite"></p>
+  </div>
+</main>
+
+<script>
+var T = {
+  ru:{ title:'Страница не найдена — BN Games', h1:'Эта страница сбежала', t:'Возможно, её перенесли или в адресе опечатка. Зато все игры на месте — выбирайте любую.',
+       games:'Выбрать игру', home:'На главную', hint:'Пока вы здесь — лопните неоновые фигуры: <b>{n}</b> из {all}',
+       done:'Все {all} пойманы! Таких бы игроков в рейтинг 🏆 Фигуры уже возвращаются…', lang:'EN', langAria:'English version' },
+  en:{ title:'Page not found — BN Games', h1:'This page ran away', t:'It may have moved, or there is a typo in the address. All the games are still here — pick any.',
+       games:'Pick a game', home:'Home page', hint:'While you are here, pop the neon shapes: <b>{n}</b> of {all}',
+       done:'All {all} caught! We could use players like you 🏆 The shapes are coming back…', lang:'RU', langAria:'Русская версия' }
+};
+var lang = (location.search.match(/lang=(ru|en)/) || [])[1];
+if(!lang){ try{ lang = localStorage.getItem('bn_lang'); }catch(e){} }
+if(lang !== 'en') lang = 'ru';
+var caught = 0, ALL = 0, reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+function fill(s){ return s.replace('{n}', caught).replace(/\{all\}/g, ALL); }
+function hint(){ document.getElementById('hint').innerHTML = fill(caught >= ALL ? T[lang].done : T[lang].hint); }
+function setLang(l, save){
+  lang = l; var L = T[lang];
+  document.documentElement.lang = lang; document.title = L.title;
+  document.querySelectorAll('[data-i]').forEach(function(el){ el.textContent = L[el.dataset.i]; });
+  var b = document.getElementById('lang'); b.textContent = L.lang; b.setAttribute('aria-label', L.langAria);
+  var q = lang === 'en' ? '?lang=en' : '';
+  document.getElementById('to-games').href = '/' + q + '#games'; document.getElementById('to-home').href = '/' + q;
+  if(save){ try{ localStorage.setItem('bn_lang', lang); }catch(e){} }
+  hint();
+}
+document.getElementById('lang').addEventListener('click', function(){ setLang(lang === 'en' ? 'ru' : 'en', true); });
+
+/* звёзды */
+var st = document.getElementById('stars'), h = '';
+for(var i = 0; i < 70; i++) h += '<i style="left:'+(Math.random()*100)+'%;top:'+(Math.random()*62)+'%;--d:'+(2+Math.random()*4).toFixed(1)+'s;--dl:-'+(Math.random()*5).toFixed(1)+'s"></i>';
+st.innerHTML = h;
+
+/* неоновые фигуры — как на главной: квадрат, треугольник, круг, крестик */
+var SH = {
+  sq:'<svg viewBox="0 0 40 40"><rect x="6" y="6" width="28" height="28" rx="3" fill="none" stroke="currentColor" stroke-width="4"/></svg>',
+  tri:'<svg viewBox="0 0 40 40"><path d="M20 6 L35 33 H5 Z" fill="none" stroke="currentColor" stroke-width="4" stroke-linejoin="round"/></svg>',
+  ci:'<svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="14" fill="none" stroke="currentColor" stroke-width="4"/></svg>',
+  x:'<svg viewBox="0 0 40 40"><path d="M9 9 L31 31 M31 9 L9 31" stroke="currentColor" stroke-width="5" stroke-linecap="round"/></svg>'
+};
+var B = '#4fd6ff', O = '#ffb020', P = '#ff4fd8';
+var PLACED = [ // x, y, размер, вид, цвет, глубина, дальняя (прячем на телефоне)
+  ['7%','14%','clamp(30px,4vw,54px)','sq',B,1.4,0], ['86%','12%','clamp(26px,3.4vw,46px)','tri',O,1.2,0],
+  ['12%','70%','clamp(24px,3vw,42px)','ci',O,1,0], ['82%','66%','clamp(28px,3.6vw,50px)','x',B,1.5,0],
+  ['24%','34%','clamp(16px,2vw,28px)','x',P,.7,1], ['70%','36%','clamp(18px,2.2vw,30px)','ci',B,.8,1],
+  ['44%','8%','clamp(16px,1.8vw,26px)','tri',B,.6,1], ['58%','80%','clamp(18px,2vw,28px)','sq',P,.9,1],
+  ['94%','44%','clamp(16px,1.8vw,26px)','ci',O,.6,1], ['3%','46%','clamp(16px,1.8vw,26px)','tri',P,.7,1]
+];
+var host = document.getElementById('shapes');
+function visibleShapes(){ return [].filter.call(host.querySelectorAll('.shape:not(.pop)'), function(s){ return s.offsetParent !== null; }); }
+function spawn(){
+  host.innerHTML = '';
+  PLACED.forEach(function(p, i){
+    var el = document.createElement('button');
+    el.type = 'button'; el.className = 'shape' + (p[6] ? ' far' : '');
+    el.setAttribute('aria-label', lang === 'en' ? 'Pop the shape' : 'Лопнуть фигуру');
+    el.style.cssText = '--x:'+p[0]+';--y:'+p[1]+';--s:'+p[2]+';--c:'+p[4]+';--i:'+i+';--d:'+(5 + i % 4 * 1.3)+'s;--dl:'+(-i * .9)+'s;--rot:'+(i % 2 ? -18 : 18)+'deg';
+    el.dataset.depth = p[5]; el.innerHTML = '<span>' + SH[p[3]] + '</span>';
+    el.addEventListener('click', function(e){ popShape(el, p[4], e); });
+    host.appendChild(el);
+  });
+  caught = 0; ALL = visibleShapes().length; hint();
+}
+function popShape(el, c, e){
+  var r = el.getBoundingClientRect(), x = r.left + r.width / 2, y = r.top + r.height / 2;
+  el.classList.add('pop');
+  if(!reduced){
+    for(var k = 0; k < 14; k++){
+      var a = Math.PI * 2 * k / 14 + Math.random() * .4, d = 50 + Math.random() * 60, s = document.createElement('i');
+      s.className = 'spark'; s.style.cssText = 'left:'+x+'px;top:'+y+'px;--c:'+c+';--dx:'+(Math.cos(a)*d)+'px;--dy:'+(Math.sin(a)*d)+'px';
+      document.body.appendChild(s); setTimeout(s.remove.bind(s), 750);
+    }
+    var pl = document.createElement('i'); pl.className = 'plus'; pl.textContent = '+1'; pl.style.cssText = 'left:'+(x-12)+'px;top:'+(y-30)+'px';
+    document.body.appendChild(pl); setTimeout(pl.remove.bind(pl), 950);
+  }
+  caught++; hint();
+  if(caught >= ALL) setTimeout(spawn, 2600);
+}
+spawn();
+setLang(lang, false);
+
+/* фигуры плывут за мышью и наклоном телефона; «зрачок» в нуле следит за курсором */
+var pupil = document.getElementById('pupil');
+if(!reduced){
+  var tx = 0, ty = 0, cx = 0, cy = 0, raf = 0;
+  function aim(nx, ny){ tx = nx; ty = ny; if(!raf) raf = requestAnimationFrame(step); }
+  window.addEventListener('pointermove', function(e){ aim((e.clientX / innerWidth - .5) * 2, (e.clientY / innerHeight - .5) * 2); });
+  window.addEventListener('deviceorientation', function(e){ if(e.gamma != null) aim(Math.max(-1, Math.min(1, e.gamma / 30)), Math.max(-1, Math.min(1, (e.beta - 40) / 30))); });
+  function step(){
+    cx += (tx - cx) * .08; cy += (ty - cy) * .08;
+    host.querySelectorAll('.shape').forEach(function(s){ var d = +s.dataset.depth; s.style.setProperty('--px', (cx * 26 * d) + 'px'); s.style.setProperty('--py', (cy * 18 * d) + 'px'); });
+    pupil.setAttribute('transform', 'translate(' + (cx * 18).toFixed(2) + ' ' + (cy * 22).toFixed(2) + ')');
+    raf = (Math.abs(tx - cx) + Math.abs(ty - cy) > .002) ? requestAnimationFrame(step) : 0;
+  }
+}
+</script>
+</body>
+</html>

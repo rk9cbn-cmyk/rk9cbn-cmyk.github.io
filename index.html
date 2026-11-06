@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>BN Games — игры, которые я делаю сам</title>
-<meta name="description" content="BN Games — игры Николая Бахвалова: «Шашки: новые миры», «Крестики-нолики: новые миры», «Сапёр: новые миры», «Словодел», «Словодел: Разлив», «Идеальный разлив» и тренажёр морзе HST Modern. Яндекс Игры, ВКонтакте, RuStore, Google Play.">
+<meta name="description" content="BN Games — игры Николая Бахвалова: «Мастер пасьянса: 6 в 1», «Кинг: мастер взяток», «Дурак: Козырь в рукаве», «Тысяча — карточная игра», «Шашки: новые миры», «Крестики-нолики: новые миры», «Сапёр: новые миры», «Словодел», «Словодел: Разлив», «Идеальный разлив» и тренажёр морзе HST Modern. Яндекс Игры, ВКонтакте, Одноклассники, RuStore, Google Play.">
 <meta property="og:title" content="BN Games — игры, которые я делаю сам">
-<meta property="og:description" content="Шесть игр и тренажёр морзе. Один разработчик, нейросети и много упрямства.">
+<meta property="og:description" content="Десять игр и тренажёр морзе: пасьянсы, карты, шашки, словесные головоломки. Один разработчик, нейросети и много упрямства.">
 <meta property="og:image" content="img/banner-1920.jpg">
 <meta name="theme-color" content="#060a1c">
 <link rel="icon" type="image/png" href="favicon.png">
@@ -171,8 +171,9 @@ h2{font:800 clamp(26px,3.4vw,40px)/1.12 var(--f-display);margin:0;letter-spacing
 .nav-order{color:#ffcf6b!important}
 
 /* ---------- Соцсети ---------- */
-.social{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-@media (max-width:760px){.social{grid-template-columns:1fr}}
+.social{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+@media (max-width:1100px){.social{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:560px){.social{grid-template-columns:1fr}}
 .soc{display:flex;align-items:center;gap:16px;padding:20px 22px;text-decoration:none;transition:transform .2s}
 .soc:hover{transform:translateY(-3px)}
 .soc .lg{width:50px;height:50px;border-radius:14px;background:var(--c);display:grid;place-items:center;flex:none;box-shadow:0 0 22px color-mix(in srgb,var(--c) 60%,transparent)}
@@ -224,7 +225,7 @@ footer a:hover{color:#fff}
 
   <div class="intro wrap">
     <h1 data-i18n="h1">Делаю игры, в&nbsp;которые <span class="nb">хочется</span> <span class="no">вернуться</span></h1>
-    <p class="lead" data-i18n="lead">Шесть игр и тренажёр морзе. Я делаю их один — с нейросетями и упрямством. Играйте бесплатно в Яндекс Играх, ВКонтакте, RuStore и Google Play.</p>
+    <p class="lead" data-i18n="lead">Десять игр — от шашек и сапёра до пасьянсов и Дурака — и тренажёр морзе. Я делаю их один — с нейросетями и упрямством. Играйте бесплатно в Яндекс Играх, ВКонтакте, Одноклассниках, RuStore и Google Play.</p>
     <div class="cta">
       <a class="btn btn-main" href="#games" data-i18n="ctaGames">Выбрать игру</a>
       <a class="btn btn-line" href="#order" data-i18n="ctaOrder">Заказать разработку</a>
@@ -274,6 +275,29 @@ footer a:hover{color:#fff}
     </div>
   </section>
 
+  <section id="how">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 data-i18n="navHow">Как я их делаю</h2>
+        <p data-i18n="howSub">Без студии и бюджета: идея, нейросети и сотни проверок на разных экранах. Пишу об этом честно — с цифрами и ошибками.</p>
+      </div>
+      <div class="how">
+        <a class="post neon" href="https://vc.ru/ai/3225387-kak-zarabotat-na-prostykh-igrah" target="_blank" rel="noopener">
+          <span class="where">vc.ru</span>
+          <h3 data-i18n="post1">Увидел, как люди зарабатывают на простых играх, и решил попробовать. Теперь у меня четыре игры</h3>
+          <p data-i18n="post1t">Всё началось с ролика о браузерных играх. Что из этого вышло.</p>
+          <span class="more" data-i18n="read">Читать</span>
+        </a>
+        <a class="post neon" href="https://vc.ru/ai/3226230-sozdanie-igr-s-nevrosyetami" target="_blank" rel="noopener">
+          <span class="where">vc.ru</span>
+          <h3 data-i18n="post2">Как я создаю игры с помощью нейросетей. Claude Code, ChatGPT и немного упрямства</h3>
+          <p data-i18n="post2t">Вместо одной игры получилось несколько. Рассказываю, как устроена работа.</p>
+          <span class="more" data-i18n="read">Читать</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
   <section id="social" style="padding-top:20px">
     <div class="wrap">
       <div class="sec-head"><h2 data-i18n="navSocial">Где я пишу</h2><p data-i18n="socialSub">Новости игр, обновления и заметки о разработке.</p></div>
@@ -285,6 +309,10 @@ footer a:hover{color:#fff}
         <a class="soc neon" style="--c:#e8434f" href="https://vc.ru/id6165872" target="_blank" rel="noopener">
           <span class="lg"><svg viewBox="0 0 28 28" aria-hidden="true"><text x="14" y="20" text-anchor="middle" font-family="Arial Black, sans-serif" font-weight="900" font-size="15" fill="#fff">vc</text></svg></span>
           <div><b>vc.ru</b><span data-i18n="vcSub">блог о разработке</span></div>
+        </a>
+        <a class="soc neon" style="--c:#1a1a1a" href="https://dtf.ru/id3561405" target="_blank" rel="noopener">
+          <span class="lg"><svg viewBox="0 0 28 28" aria-hidden="true"><text x="14" y="18.5" text-anchor="middle" font-family="Arial Black, sans-serif" font-weight="900" font-size="10" letter-spacing="-.3" fill="#fff">DTF</text></svg></span>
+          <div><b>DTF</b><span data-i18n="dtfSub">блог об играх</span></div>
         </a>
         <a class="soc neon" style="--c:#0077ff" href="https://vk.ru/club242598778" target="_blank" rel="noopener">
           <span class="lg"><svg viewBox="0 0 28 28" aria-hidden="true"><path fill="#fff" d="M15.1 21C7.6 21 3.3 15.9 3.1 7.3h3.8c.1 6.3 2.9 9 5.1 9.5V7.3h3.5v5.4c2.2-.2 4.5-2.7 5.2-5.4h3.5c-.6 3.4-3 5.9-4.8 6.9 1.8.8 4.6 3 5.6 6.8h-3.9c-.8-2.6-2.9-4.6-5.6-4.9V21h-.4z"/></svg></span>
@@ -314,24 +342,36 @@ footer a:hover{color:#fff}
 /* ===== Всё, что меняется, — здесь. Пустая ссылка — магазин в строке «Скоро». ===== */
 var CONTACT = 'rk9cbn@mail.ru';
 var GAMES = [
+  { key:'master', on:['yandex','vk','ok'], title:'Мастер пасьянса: 6 в 1', text:'Шесть пасьянсов в одной игре: Косынка, Паук, Скорпион, Свободная ячейка, Пирамида и Маджонг. Каждая раздача решаема, общий прогресс, задание дня и подарки за вход.', tags:['6 пасьянсов','570 испытаний','все раздачи решаемы'],
+    en:{ title:'Solitaire Master: 6 in 1', text:'Six solitaire games in one: Klondike, Spider, Scorpion, FreeCell, Pyramid and Mahjong. Every deal is solvable, shared progress, a daily quest and login gifts.', tags:['6 solitaires','570 challenges','always solvable'] },
+    yandex:'https://yandex.ru/games/app/646089', vk:'https://vk.com/app54877985', ok:'https://ok.ru/app/512005251793', rustore:'', play:'' },
+  { key:'king', coverEn:true, on:['yandex','vk','ok'], title:'Кинг: мастер взяток', text:'Русская карточная игра на взятки против пяти соперников с характером. 14 игр в партии, ералаш, разбор ошибок после раздачи и 60 испытаний.', tags:['14 игр в партии','60 испытаний','раздача дня'],
+    en:{ title:'King: Trick Master', text:'The Russian trick-taking card game against five opponents with character. 14 games per match, the all-in-one finale, a mistake review after each deal and 60 challenges.', tags:['14 games per match','60 challenges','daily deal'] },
+    yandex:'https://yandex.ru/games/app/636491', vk:'https://vk.com/app54836187', ok:'https://ok.ru/app/512005790597', rustore:'', play:'' },
+  { key:'durak', coverEn:true, on:['yandex','vk','ok'], title:'Дурак: Козырь в рукаве', text:'Подкидной и переводной на 2–6 игроков против компьютера. А в режиме «Жульничество» — карта в рукаве и кнопка «Лови!», если соперник схитрил.', tags:['2–6 игроков','режим жульничества','раздача дня'],
+    en:{ title:'Durak: Ace Up the Sleeve', text:'Classic and transfer Durak for 2–6 players against the computer. And in Cheat mode — a card up your sleeve and a “Gotcha!” button when an opponent cheats.', tags:['2–6 players','cheat mode','daily deal'] },
+    yandex:'https://yandex.ru/games/app/623736', vk:'https://vk.com/app54817318', ok:'https://ok.ru/app/512005589050', rustore:'', play:'' },
+  { key:'thousand', coverEn:true, on:['yandex','vk','ok'], title:'Тысяча — карточная игра', text:'Классическая «1000» с торговлей, прикупом, марьяжами и бочкой. Правила как у вас за столом: 46 договорённостей, четыре уровня ботов и игра вдвоём.', tags:['46 правил на выбор','30 испытаний','игра вдвоём'],
+    en:{ title:'Thousand — Card Game', text:'The classic Russian 1000 with bidding, the talon, marriages and the barrel. House rules your way: 46 options, four bot levels and two-player mode.', tags:['46 house rules','30 challenges','two players'] },
+    yandex:'https://yandex.ru/games/app/613984', vk:'https://vk.com/app54819670', ok:'https://ok.ru/app/512005255264', rustore:'', play:'' },
   { key:'checkers', coverEn:true, title:'Шашки: новые миры', text:'Девять видов шашек — русские, поддавки, уголки, башни, международные — как десять миров с соперниками-персонажами. Задачи на удар, дебюты и разбор ошибок.', tags:['300 уровней','300 задач','9 видов'],
     en:{ title:'Checkers: New Worlds', text:'Nine kinds of checkers — Russian, giveaway, corners, towers, international — as ten worlds with character opponents. Tactics puzzles, openings and mistake review.', tags:['300 levels','300 puzzles','9 variants'] },
     yandex:'', vk:'https://vk.com/app54871983', rustore:'', play:'' },
   { key:'tictactoe', coverEn:true, title:'Крестики-нолики: новые миры', text:'Десять миров с разными правилами: гравитация, исчезающие знаки, поле 15×15. Боссы, задачи и игра вдвоём.', tags:['300 уровней','10 миров','задача дня'],
     en:{ title:'Tic-Tac-Toe: New Worlds', text:'Ten worlds with different rules: gravity, vanishing marks, a 15×15 board. Bosses, puzzles and two-player mode.', tags:['300 levels','10 worlds','daily puzzle'] },
-    yandex:'', vk:'https://vk.com/app54857988', rustore:'', play:'https://play.google.com/store/apps/details?id=ru.tictactoe.worlds' },
+    yandex:'', vk:'https://vk.com/app54857988', rustore:'', play:'' },
   { key:'sapper', coverEn:true, title:'Сапёр: новые миры', text:'Сапёр без угадывания: каждое поле решается логикой. Ежедневное поле, классика и поле для друга.', tags:['500 уровней','12 стилей','без угадаек'],
     en:{ title:'Minesweeper: New Worlds', text:'Minesweeper with no guessing: every board is solved by logic. Daily board, classic mode and a board for a friend.', tags:['500 levels','12 styles','no guessing'] },
-    yandex:'', vk:'https://vk.com/app54819098', rustore:'', play:'https://play.google.com/store/apps/details?id=ru.sapper.logic&hl=ru&gl=ru' },
+    yandex:'', vk:'https://vk.com/app54819098', rustore:'', play:'' },
   { key:'slovodel', title:'Словодел: угадай слово', text:'Угадай слово по подсказкам плиток: что на месте, что есть, чего нет. Уровни, бесконечный режим, паника и дуэль.', tags:['1000 уровней','5 режимов'],
     en:{ title:'Slovodel: Guess the Word', text:'A Russian word game: guess the word from tile hints — in place, present, absent. Levels, endless mode, panic and duel.', tags:['in Russian','1000 levels','5 modes'] },
-    yandex:'https://yandex.ru/games/app/558460', vk:'https://vk.com/app54795154', rustore:'', play:'https://play.google.com/store/apps/details?id=ru.slovodel.slovo' },
+    yandex:'https://yandex.ru/games/app/558460', vk:'https://vk.com/app54795154', rustore:'', play:'' },
   { key:'razliv', title:'Словодел: Разлив', text:'Переливай буквы по пробиркам, пока каждая не станет словом. И цепочка дня — одно слово в другое по букве.', tags:['300 уровней','15 миров','цепочка дня'],
     en:{ title:'Slovodel: Pour', text:'A Russian word puzzle: pour letters between tubes until each one spells a word. Plus a daily word chain.', tags:['in Russian','300 levels','15 worlds'] },
-    yandex:'', vk:'https://vk.com/app54810726', rustore:'', play:'https://play.google.com/store/apps/details?id=ru.slovodel.razliv&hl=ru&gl=ru' },
+    yandex:'', vk:'https://vk.com/app54810726', rustore:'', play:'' },
   { key:'perfect-pour', coverEn:true, title:'Идеальный разлив', text:'Сортировка жидкостей по бутылкам: спокойная, но с характером. Ежедневный расклад, редактор и вызов друга на тот же расклад.', tags:['ежедневный расклад','вызов другу'],
     en:{ title:'Perfect Pour', text:'Sort the liquids into bottles: calm, but with character. Daily layout, level editor and a friend challenge on the same layout.', tags:['daily layout','friend challenge'] },
-    yandex:'https://yandex.ru/games/app/563751', vk:'https://vk.com/app54795219', rustore:'', play:'https://play.google.com/store/apps/details?id=ru.perfect_pour&hl=ru&gl=ru' }
+    yandex:'https://yandex.ru/games/app/563751', vk:'https://vk.com/app54795219', rustore:'', play:'' }
 ];
 var HST = { play:'https://play.google.com/store/apps/details?id=ru.hstmodern', rustore:'' };
 /* Тарифы: цены «от», правьте здесь. Кнопка «Заказать» открывает письмо на CONTACT с темой тарифа. */
@@ -377,13 +417,14 @@ var ICONS = {
   yandex:'<svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="8" fill="#fc3f1d"/><path fill="#fff" d="M9.1 3.5H8.3C6.9 3.5 6 4.3 6 5.5c0 1.3.6 2 1.7 2.8l.9.6-2.6 3.6H4.5l2.3-3.3C5.5 8.3 4.8 7.4 4.8 5.6c0-2 1.4-3.3 3.5-3.3h2.1V12H9.1V3.5z"/></svg>',
   vk:'<svg viewBox="0 0 16 16"><rect width="16" height="16" rx="4" fill="#07f"/><path fill="#fff" d="M8.5 11.6c-3.9 0-6.1-2.7-6.2-7.1h2c0 3.3 1.5 4.7 2.7 5V4.5h1.8v2.8c1.1-.1 2.3-1.4 2.7-2.8h1.8c-.3 1.8-1.6 3.1-2.5 3.6.9.4 2.4 1.6 2.9 3.5h-2c-.4-1.3-1.5-2.4-2.9-2.5v2.5h-.3z"/></svg>',
   rustore:'<svg viewBox="0 0 16 16"><rect width="16" height="16" rx="4" fill="#0077ff"/><path fill="#fff" d="M4 4.5l4.6 1.2v6.1L4 10.6zM9.4 5.9L12 6.6v5l-2.6-.7z"/></svg>',
+  ok:'<svg viewBox="0 0 16 16"><rect width="16" height="16" rx="4" fill="#f7931e"/><circle cx="8" cy="5.2" r="2.3" fill="none" stroke="#fff" stroke-width="1.5"/><path d="M5.2 8.9c1.7 1.1 3.9 1.1 5.6 0M8 9.7v.3M5.6 13l2.4-2.6 2.4 2.6" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>',
   play:'<svg viewBox="0 0 16 16"><path fill="#00d7fe" d="M2 1.5l7.3 6.6L2 14.7c-.3-.2-.5-.6-.5-1V2.5c0-.4.2-.8.5-1z"/><path fill="#ffce00" d="M11.7 5.9L9.3 8.1l2.4 2.2 2.4-1.4c.6-.4.6-1.2 0-1.6z"/><path fill="#00f076" d="M2 1.5L9.3 8.1l2.4-2.2L3.2 1.3C2.8 1.1 2.4 1.2 2 1.5z"/><path fill="#ff3a44" d="M2 14.7c.4.3.8.4 1.2.2l8.5-4.6-2.4-2.2z"/></svg>'
 };
-var NAMES = { ru:{ yandex:'Яндекс Игры', vk:'ВКонтакте', rustore:'RuStore', play:'Google Play' }, en:{ yandex:'Yandex Games', vk:'VK', rustore:'RuStore', play:'Google Play' } };
+var NAMES = { ru:{ yandex:'Яндекс Игры', vk:'ВКонтакте', ok:'Одноклассники', rustore:'RuStore', play:'Google Play' }, en:{ yandex:'Yandex Games', vk:'VK', ok:'OK', rustore:'RuStore', play:'Google Play' } };
 var EN = {
   nav:'Sections', navGames:'Games', navHow:'How I make them', navSocial:'Where I write',
   h1:'I make games you <span class="nb">want to come</span> <span class="no">back to</span>',
-  lead:'Six games and a Morse code trainer. I make them on my own — with neural networks and stubbornness. Play for free on Yandex Games, VK, RuStore and Google Play.',
+  lead:'Ten games — from checkers and minesweeper to solitaire and Durak — and a Morse code trainer. I make them on my own — with neural networks and stubbornness. Play for free on Yandex Games, VK, OK, RuStore and Google Play.',
   ctaGames:'Pick a game', gamesSub:'Each one has its own worlds, daily puzzles and a challenge you can send to a friend.',
   hstBadge:'Not just games', hstTitle:'HST Modern — a Morse code receiving trainer',
   hstText:'For high-speed telegraphy and for those just learning the characters. Speed from 20 to 400 characters per minute, tone from 300 to 1000 Hz, Russian letters, a competition mode with a log. Works offline.',
@@ -392,7 +433,7 @@ var EN = {
   post1:'I saw people earn money on simple games and decided to try. Now I have four games', post1t:'It all started with a video about browser games. Here is what came of it.',
   post2:'How I make games with neural networks: Claude Code, ChatGPT and a bit of stubbornness', post2t:'Instead of one game I ended up with several. How the work is organized.',
   read:'Read (in Russian)', socialSub:'Game news, updates and development notes. In Russian.',
-  dzen:'Dzen', dzenSub:'BN Games channel', vcSub:'development blog', vk:'VK', vkSub:'community',
+  dzen:'Dzen', dzenSub:'BN Games channel', vcSub:'development blog', dtfSub:'blog about games', vk:'VK', vkSub:'community',
   policies:'Privacy policy (in Russian)', contact:'Contact', contactText:'Questions, bugs, ideas:',
   copy:'BN Games — Nikolay Bakhvalov. The games are free and show Yandex ads.', soon:'Coming soon: ',
   navOrder:'Hire me', ctaOrder:'Order development', orderTitle:'Order development',
@@ -438,7 +479,7 @@ function renderGames(){
     return '<article class="game neon"><div class="cover"><img src="'+img+'" alt="'+esc(t.title)+'" width="1024" height="500" loading="lazy" decoding="async"></div>'+
       '<div class="body"><img class="ico" src="img/'+g.key+'-icon.png" alt="" width="64" height="64" loading="lazy">'+
       '<h3>'+esc(t.title)+'</h3><p>'+esc(t.text)+'</p><ul class="tags">'+t.tags.map(function(x){return '<li>'+esc(x)+'</li>';}).join('')+'</ul>'+
-      '<div class="stores">'+stores(g, ['yandex','vk','rustore','play'])+'</div></div></article>';
+      '<div class="stores">'+stores(g, g.on || ['yandex','vk','rustore','play'])+'</div></div></article>';
   }).join('');
   document.getElementById('hst-stores').innerHTML = stores(HST, ['play','rustore']);
   document.getElementById('policies').innerHTML = POLICIES.map(function(p){ return '<li><a href="'+p[1]+'">'+esc(lang === 'en' ? POLICY_EN[p[0]] : p[0])+'</a></li>'; }).join('');
@@ -448,7 +489,7 @@ function renderGames(){
 var RU = {};
 document.querySelectorAll('[data-i18n]').forEach(function(el){ RU[el.dataset.i18n] = el.innerHTML; });
 var META = { ru:{ title:document.title, desc:document.querySelector('meta[name=description]').content },
-  en:{ title:'BN Games — games I make myself', desc:'BN Games by Nikolay Bakhvalov: Checkers: New Worlds, Tic-Tac-Toe: New Worlds, Minesweeper: New Worlds, Perfect Pour, Slovodel word games and the HST Modern Morse code trainer.' } };
+  en:{ title:'BN Games — games I make myself', desc:'BN Games by Nikolay Bakhvalov: Solitaire Master: 6 in 1, King: Trick Master, Durak: Ace Up the Sleeve, Thousand — Card Game, Checkers: New Worlds, Tic-Tac-Toe: New Worlds, Minesweeper: New Worlds, Perfect Pour, Slovodel word games and the HST Modern Morse code trainer.' } };
 function setLang(l, save){
   lang = l === 'en' ? 'en' : 'ru';
   document.documentElement.lang = lang;
