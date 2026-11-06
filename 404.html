@@ -28,13 +28,13 @@ a{color:inherit}
 :focus-visible{outline:3px solid var(--amber);outline-offset:3px;border-radius:10px}
 
 /* звёзды */
-.stars{position:fixed;inset:0;pointer-events:none}
+.stars{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none}
 .stars i{position:absolute;width:2px;height:2px;border-radius:50%;background:#bfe6ff;opacity:.6;animation:tw var(--d) ease-in-out infinite var(--dl)}
 @keyframes tw{50%{opacity:.1;transform:scale(.5)}}
 
 /* неоновая сетка-пол, едет к зрителю */
 .floor{position:fixed;left:-50%;right:-50%;bottom:0;height:40vh;pointer-events:none;perspective:340px;perspective-origin:50% 0}
-.floor::before{content:"";position:absolute;inset:0;transform:rotateX(62deg);transform-origin:50% 0;
+.floor::before{content:"";position:absolute;top:0;left:0;right:0;bottom:0;transform:rotateX(62deg);transform-origin:50% 0;
   background:linear-gradient(90deg,rgba(79,214,255,.45) 2px,transparent 2px) 0 0/70px 70px,linear-gradient(0deg,rgba(79,214,255,.45) 2px,transparent 2px) 0 0/70px 70px;
   -webkit-mask:linear-gradient(transparent,#000 30%,#000);mask:linear-gradient(transparent,#000 30%,#000);
   animation:run 1.6s linear infinite}
@@ -42,15 +42,17 @@ a{color:inherit}
 @keyframes run{to{background-position:0 70px,0 70px}}
 
 /* фигуры */
-.shapes{position:fixed;inset:0}
+.shapes{position:fixed;top:0;left:0;width:100%;height:100%}
 .shape{position:absolute;left:var(--x);top:var(--y);width:var(--s);height:var(--s);padding:0;border:0;background:none;cursor:pointer;color:var(--c);
   filter:drop-shadow(0 0 6px currentColor) drop-shadow(0 0 16px currentColor);
-  translate:var(--px,0) var(--py,0);animation:appear .8s cubic-bezier(.2,1.4,.4,1) both calc(var(--i) * .08s + .3s)}
-.shape span{display:block;width:100%;height:100%;animation:float var(--d) ease-in-out infinite var(--dl)}
+  translate:var(--px,0) var(--py,0);-webkit-tap-highlight-color:transparent;touch-action:manipulation;
+  animation:appear .8s cubic-bezier(.2,1.4,.4,1) both calc(var(--i) * .08s + .3s),float var(--d) ease-in-out infinite var(--dl)}
+.shape::before{content:"";position:absolute;top:-18px;left:-18px;right:-18px;bottom:-18px;border-radius:50%}
+.shape span{display:block;width:100%;height:100%;pointer-events:none}
 .shape svg{width:100%;height:100%;overflow:visible;transition:transform .2s}
 .shape:hover svg{transform:scale(1.25) rotate(20deg)}
 .shape.pop{animation:pop .35s ease-in forwards;pointer-events:none}
-@keyframes float{50%{transform:translateY(-18px) rotate(var(--rot))}}
+@keyframes float{50%{transform:translateY(-16px) rotate(var(--rot))}}
 @keyframes appear{from{opacity:0;scale:.2}to{opacity:.95;scale:1}}
 @keyframes pop{to{opacity:0;scale:1.9;filter:drop-shadow(0 0 30px currentColor) brightness(2)}}
 .spark{position:fixed;width:6px;height:6px;border-radius:50%;background:var(--c);box-shadow:0 0 10px var(--c),0 0 20px var(--c);pointer-events:none;
@@ -61,21 +63,22 @@ a{color:inherit}
 
 /* центр */
 main{position:relative;z-index:2;height:100%;display:grid;place-items:center;padding:16px;pointer-events:none}
-.box{text-align:center;max-width:620px;pointer-events:auto}
+.box{text-align:center;max-width:620px}
+.box a,.box button{pointer-events:auto}   /* фигуры за текстом тоже ловятся */
 .brand{display:inline-flex;align-items:center;gap:10px;text-decoration:none;font:800 16px/1 var(--f-display);margin-bottom:6px;animation:rise .6s both}
 .brand img{width:36px;height:36px;border-radius:50%;box-shadow:0 0 0 1px rgba(255,255,255,.15),0 0 16px rgba(47,141,255,.5)}
 .code{display:flex;justify-content:center;align-items:center;gap:clamp(4px,1.5vw,16px);margin:6px 0 4px;font:800 clamp(110px,24vw,230px)/1 var(--f-display);user-select:none}
 .d4{position:relative;color:#5fd0ff;text-shadow:0 0 6px rgba(150,220,255,.9),0 0 24px rgba(47,141,255,.9),0 0 60px rgba(47,141,255,.6);animation:flick 5s infinite}
 .d4.b{animation-delay:-2.3s;animation-duration:7s}
-.d4::before,.d4::after{content:attr(data-t);position:absolute;inset:0;opacity:0}
+.d4::before,.d4::after{content:attr(data-t);position:absolute;top:0;left:0;right:0;bottom:0;opacity:0}
 .d4::before{color:#ff4fd8;text-shadow:none;animation:gl1 4s infinite steps(1)}
 .d4::after{color:var(--amber);text-shadow:none;animation:gl2 4s infinite steps(1)}
 @keyframes flick{0%,18%,22%,62%,64%,100%{opacity:1}20%,63%{opacity:.35}}
-@keyframes gl1{0%,91%,100%{opacity:0;transform:none}92%{opacity:.8;transform:translate(-6px,2px);clip-path:inset(10% 0 55% 0)}95%{opacity:.8;transform:translate(5px,-3px);clip-path:inset(60% 0 10% 0)}}
-@keyframes gl2{0%,92%,100%{opacity:0;transform:none}93%{opacity:.8;transform:translate(6px,-1px);clip-path:inset(40% 0 30% 0)}96%{opacity:.8;transform:translate(-4px,3px);clip-path:inset(5% 0 70% 0)}}
+@keyframes gl1{0%,91%,100%{opacity:0;transform:none}92%{opacity:.5;transform:translate(-4px,2px);clip-path:inset(10% 0 55% 0)}95%{opacity:.5;transform:translate(3px,-2px);clip-path:inset(60% 0 10% 0)}}
+@keyframes gl2{0%,92%,100%{opacity:0;transform:none}93%{opacity:.5;transform:translate(4px,-1px);clip-path:inset(40% 0 30% 0)}96%{opacity:.5;transform:translate(-3px,2px);clip-path:inset(5% 0 70% 0)}}
 /* «0» — неоновый круг с орбитой, ловит курсор зрачком */
 .zero{position:relative;width:.78em;height:.95em;flex:none}
-.zero svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.zero svg{position:absolute;top:0;left:0;right:0;bottom:0;width:100%;height:100%;overflow:visible}
 .ring{fill:none;stroke:var(--amber);stroke-width:9;filter:drop-shadow(0 0 4px #ffd27a) drop-shadow(0 0 18px rgba(255,140,30,.9))}
 .orbit{fill:none;stroke:var(--cyan);stroke-width:3;stroke-dasharray:6 14;opacity:.8;transform-origin:50% 50%;animation:spin 9s linear infinite;filter:drop-shadow(0 0 6px var(--cyan))}
 .pupil{fill:var(--cyan);filter:drop-shadow(0 0 8px var(--cyan));transition:transform .15s ease-out}
@@ -91,6 +94,8 @@ p.t{margin:0 auto 22px;color:#c7d4f2;text-shadow:0 1px 8px #060a1c,0 0 2px #060a
 .btn-line{color:#fff;box-shadow:inset 0 0 0 2px rgba(79,214,255,.7),0 0 18px rgba(47,141,255,.35);background:rgba(6,10,28,.5)}
 .hint{margin:22px 0 0;font-size:15px;color:var(--muted);min-height:1.6em;animation:rise .6s .45s both}
 .hint b{color:var(--amber)}
+.win{display:inline-flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:center;padding:10px 12px 10px 18px;border-radius:999px;background:rgba(13,22,54,.85);box-shadow:inset 0 0 0 1px rgba(255,176,32,.5),0 0 24px rgba(255,140,30,.3);color:#fff;animation:rise .4s both}
+.win button{border:0;cursor:pointer;padding:9px 16px;border-radius:999px;font:900 14px/1 var(--f-ui);color:#1d1000;background:linear-gradient(180deg,#ffd166,var(--amber))}
 .lang{position:fixed;top:16px;right:16px;z-index:3;border:0;cursor:pointer;padding:8px 13px;border-radius:999px;font:900 14px/1 var(--f-ui);letter-spacing:.5px;color:#1d1000;background:linear-gradient(180deg,#ffd166,var(--amber));box-shadow:0 0 14px rgba(255,150,30,.45)}
 @keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
 @media (max-height:560px){.code{font-size:min(24vw,120px)}.floor{height:30vh}}
@@ -132,11 +137,11 @@ p.t{margin:0 auto 22px;color:#c7d4f2;text-shadow:0 1px 8px #060a1c,0 0 2px #060a
 <script>
 var T = {
   ru:{ title:'Страница не найдена — BN Games', h1:'Эта страница сбежала', t:'Возможно, её перенесли или в адресе опечатка. Зато все игры на месте — выбирайте любую.',
-       games:'Выбрать игру', home:'На главную', hint:'Пока вы здесь — лопните неоновые фигуры: <b>{n}</b> из {all}',
-       done:'Все {all} пойманы! Таких бы игроков в рейтинг 🏆 Фигуры уже возвращаются…', lang:'EN', langAria:'English version' },
+       games:'Выбрать игру', home:'На главную', hint:'Пока вы здесь — лопните все светящиеся фигуры: <b>{n}</b> из {all}',
+       done:'🏆 Все {all} за <b>{time} с</b>{best}', best:' · рекорд {b} с', rec:' · новый рекорд!', again:'Ещё раунд', lang:'EN', langAria:'English version' },
   en:{ title:'Page not found — BN Games', h1:'This page ran away', t:'It may have moved, or there is a typo in the address. All the games are still here — pick any.',
-       games:'Pick a game', home:'Home page', hint:'While you are here, pop the neon shapes: <b>{n}</b> of {all}',
-       done:'All {all} caught! We could use players like you 🏆 The shapes are coming back…', lang:'RU', langAria:'Русская версия' }
+       games:'Pick a game', home:'Home page', hint:'While you are here, pop all the glowing shapes: <b>{n}</b> of {all}',
+       done:'🏆 All {all} in <b>{time} s</b>{best}', best:' · best {b} s', rec:' · new record!', again:'Play again', lang:'RU', langAria:'Русская версия' }
 };
 var lang = (location.search.match(/lang=(ru|en)/) || [])[1];
 if(!lang){ try{ lang = localStorage.getItem('bn_lang'); }catch(e){} }
@@ -144,7 +149,17 @@ if(lang !== 'en') lang = 'ru';
 var caught = 0, ALL = 0, reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 function fill(s){ return s.replace('{n}', caught).replace(/\{all\}/g, ALL); }
-function hint(){ document.getElementById('hint').innerHTML = fill(caught >= ALL ? T[lang].done : T[lang].hint); }
+var t0 = 0, last = 0, best = 0, record = false;
+try{ best = +localStorage.getItem('bn_404_best') || 0; }catch(e){}
+function sec(ms){ var v = (ms / 1000).toFixed(1); return lang === 'ru' ? v.replace('.', ',') : v; }
+function hint(){
+  var el = document.getElementById('hint');
+  if(caught < ALL){ el.innerHTML = fill(T[lang].hint); return; }
+  var L = T[lang];
+  el.innerHTML = '<span class="win"><span>' + fill(L.done).replace('{time}', sec(last)).replace('{best}', record ? L.rec : best < last ? L.best.replace('{b}', sec(best)) : '') +
+    '</span><button type="button" id="again">' + L.again + '</button></span>';
+  document.getElementById('again').addEventListener('click', spawn);
+}
 function setLang(l, save){
   lang = l; var L = T[lang];
   document.documentElement.lang = lang; document.title = L.title;
@@ -187,12 +202,15 @@ function spawn(){
     el.setAttribute('aria-label', lang === 'en' ? 'Pop the shape' : 'Лопнуть фигуру');
     el.style.cssText = '--x:'+p[0]+';--y:'+p[1]+';--s:'+p[2]+';--c:'+p[4]+';--i:'+i+';--d:'+(5 + i % 4 * 1.3)+'s;--dl:'+(-i * .9)+'s;--rot:'+(i % 2 ? -18 : 18)+'deg';
     el.dataset.depth = p[5]; el.innerHTML = '<span>' + SH[p[3]] + '</span>';
-    el.addEventListener('click', function(e){ popShape(el, p[4], e); });
+    el.addEventListener('pointerdown', function(e){ e.preventDefault(); popShape(el, p[4]); });
+    el.addEventListener('click', function(){ popShape(el, p[4]); });   // клавиатура
     host.appendChild(el);
   });
   caught = 0; ALL = visibleShapes().length; hint();
 }
-function popShape(el, c, e){
+function popShape(el, c){
+  if(el.classList.contains('pop')) return;
+  if(!caught) t0 = Date.now();
   var r = el.getBoundingClientRect(), x = r.left + r.width / 2, y = r.top + r.height / 2;
   el.classList.add('pop');
   if(!reduced){
@@ -204,8 +222,13 @@ function popShape(el, c, e){
     var pl = document.createElement('i'); pl.className = 'plus'; pl.textContent = '+1'; pl.style.cssText = 'left:'+(x-12)+'px;top:'+(y-30)+'px';
     document.body.appendChild(pl); setTimeout(pl.remove.bind(pl), 950);
   }
-  caught++; hint();
-  if(caught >= ALL) setTimeout(spawn, 2600);
+  caught++;
+  if(caught >= ALL){
+    last = Math.max(Date.now() - t0, 100);
+    record = Boolean(best) && last < best;
+    if(!best || last < best){ best = last; try{ localStorage.setItem('bn_404_best', best); }catch(e){} }
+  }
+  hint();
 }
 spawn();
 setLang(lang, false);
