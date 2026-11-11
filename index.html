@@ -339,10 +339,11 @@ footer a:hover{color:#fff}
 </footer>
 
 <script>
-/* ===== Всё, что меняется, — здесь. Пустая ссылка — магазин в строке «Скоро». ===== */
+/* ===== Всё, что меняется, — здесь. Пустая ссылка — магазин в строке «Скоро».
+   coverEn / iconEn — у игры есть английская обложка img/<key>-en.jpg / иконка img/<key>-en-icon.png. ===== */
 var CONTACT = 'rk9cbn@mail.ru';
 var GAMES = [
-  { key:'master', title:'Мастер пасьянса: 6 в 1', text:'Шесть пасьянсов в одной игре: Косынка, Паук, Скорпион, Свободная ячейка, Пирамида и Маджонг. Каждая раздача решаема, общий прогресс, задание дня и подарки за вход.', tags:['6 пасьянсов','570 испытаний','все раздачи решаемы'],
+  { key:'master', coverEn:true, iconEn:true, title:'Мастер пасьянса: 6 в 1', text:'Шесть пасьянсов в одной игре: Косынка, Паук, Скорпион, Свободная ячейка, Пирамида и Маджонг. Каждая раздача решаема, общий прогресс, задание дня и подарки за вход.', tags:['6 пасьянсов','570 испытаний','все раздачи решаемы'],
     en:{ title:'Solitaire Master: 6 in 1', text:'Six solitaire games in one: Klondike, Spider, Scorpion, FreeCell, Pyramid and Mahjong. Every deal is solvable, shared progress, a daily quest and login gifts.', tags:['6 solitaires','570 challenges','always solvable'] },
     yandex:'', vk:'https://vk.com/app54877985', rustore:'', play:'' },
   { key:'king', coverEn:true, title:'Кинг: мастер взяток', text:'Русская карточная игра на взятки против пяти соперников с характером. 14 игр в партии, ералаш, разбор ошибок после раздачи и 60 испытаний.', tags:['14 игр в партии','60 испытаний','раздача дня'],
@@ -405,8 +406,10 @@ var PLANS = {
       itemsEn:['Everything in Landing','Interactive: calculator, quiz, gallery, mini-game','Your own domain connected','Privacy policy and app-ads.txt for apps','A month of edits after launch'] }
   ]
 };
-var POLICY_EN = { 'Шашки: новые миры':'Checkers: New Worlds', 'Крестики-нолики: новые миры':'Tic-Tac-Toe: New Worlds', 'Сапёр: новые миры':'Minesweeper: New Worlds', 'Словодел: угадай слово':'Slovodel: Guess the Word', 'Словодел: Разлив':'Slovodel: Pour', 'Идеальный разлив':'Perfect Pour', 'HST Modern':'HST Modern' };
+var POLICY_EN = { 'Мастер пасьянса: 6 в 1':'Solitaire Master: 6 in 1', 'Кинг: мастер взяток':'King: Trick Master', 'Дурак: Козырь в рукаве':'Durak: Ace Up the Sleeve', 'Тысяча — карточная игра':'Thousand — Card Game', 'Шашки: новые миры':'Checkers: New Worlds', 'Крестики-нолики: новые миры':'Tic-Tac-Toe: New Worlds', 'Сапёр: новые миры':'Minesweeper: New Worlds', 'Словодел: угадай слово':'Slovodel: Guess the Word', 'Словодел: Разлив':'Slovodel: Pour', 'Идеальный разлив':'Perfect Pour', 'HST Modern':'HST Modern' };
 var POLICIES = [
+  ['Мастер пасьянса: 6 в 1','privacy/master.html'], ['Кинг: мастер взяток','privacy/king.html'], ['Дурак: Козырь в рукаве','privacy/durak.html'],
+  ['Тысяча — карточная игра','privacy/thousand.html'],
   ['Шашки: новые миры','privacy/checkers.html'], ['Крестики-нолики: новые миры','privacy/tictactoe.html'], ['Сапёр: новые миры','privacy/sapper.html'],
   ['Словодел: угадай слово','privacy/slovodel.html'], ['Словодел: Разлив','privacy/razliv.html'],
   ['Идеальный разлив','privacy/perfect-pour.html'], ['HST Modern','privacy/hstmodern.html']
@@ -476,7 +479,7 @@ function renderGames(){
   document.getElementById('games-list').innerHTML = GAMES.map(function(g){
     var t = lang === 'en' ? g.en : g, img = 'img/' + g.key + (lang === 'en' && g.coverEn ? '-en' : '') + '.jpg';
     return '<article class="game neon"><div class="cover"><img src="'+img+'" alt="'+esc(t.title)+'" width="1024" height="500" loading="lazy" decoding="async"></div>'+
-      '<div class="body"><img class="ico" src="img/'+g.key+'-icon.png" alt="" width="64" height="64" loading="lazy">'+
+      '<div class="body"><img class="ico" src="img/'+g.key+(lang === 'en' && g.iconEn ? '-en' : '')+'-icon.png" alt="" width="64" height="64" loading="lazy">'+
       '<h3>'+esc(t.title)+'</h3><p>'+esc(t.text)+'</p><ul class="tags">'+t.tags.map(function(x){return '<li>'+esc(x)+'</li>';}).join('')+'</ul>'+
       '<div class="stores">'+stores(g, ['yandex','vk','rustore','play'])+'</div></div></article>';
   }).join('');
